@@ -1,0 +1,18 @@
+# Public 폴더
+
+## 필요한 이미지 파일 (추가 필요):
+
+### PWA 아이콘
+- icon-192x192.png (192x192 픽셀)
+- icon-512x512.png (512x512 픽셀)
+
+### Open Graph 이미지
+- og-image.jpg (1200x630 픽셀)
+
+### 생성 방법:
+1. 로고/브랜드 이미지 준비
+2. 온라인 도구 사용:
+   - https://realfavicongenerator.net/
+   - https://www.canva.com/ (OG 이미지)
+3. 위 파일명으로 이 폴더에 저장
+

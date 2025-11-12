@@ -1,0 +1,46 @@
+{
+  "header": {
+    "about": "소개",
+    "services": "서비스",
+    "contact": "문의하기",
+    "getStarted": "시작하기"
+  },
+  "hero": {
+    "title": "AI & Tech Innovation",
+    "subtitle": "최첨단 AI 기술과 혁신적인 솔루션으로 비즈니스의 미래를 만들어갑니다"
+  },
+  "categories": {
+    "all": "전체",
+    "aiInfra": "AI인프라",
+    "aiData": "AI데이터",
+    "semiconductor": "반도체",
+    "cloud": "클라우드",
+    "machineLearning": "머신러닝",
+    "deepLearning": "딥러닝",
+    "computerVision": "컴퓨터비전",
+    "nlp": "자연어처리",
+    "robotics": "로보틱스",
+    "quantum": "양자컴퓨팅",
+    "blockchain": "블록체인"
+  },
+  "main": {
+    "totalSolutions": "개의 솔루션",
+    "total": "총"
+  },
+  "footer": {
+    "company": {
+      "description": "AI와 기술 혁신을 통해 더 나은 미래를 만들어갑니다"
+    },
+    "services": {
+      "title": "서비스",
+      "aiInfra": "AI 인프라",
+      "dataSolution": "데이터 솔루션",
+      "cloudService": "클라우드"
+    },
+    "contact": {
+      "title": "문의"
+    },
+    "copyright": "© 2024 Bullora. All rights reserved."
+  }
+}
+

@@ -1,0 +1,46 @@
+{
+  "header": {
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "title": "AI & Tech Innovation",
+    "subtitle": "Creating the future of business with cutting-edge AI technology and innovative solutions"
+  },
+  "categories": {
+    "all": "All",
+    "aiInfra": "AI Infrastructure",
+    "aiData": "AI Data",
+    "semiconductor": "Semiconductor",
+    "cloud": "Cloud",
+    "machineLearning": "Machine Learning",
+    "deepLearning": "Deep Learning",
+    "computerVision": "Computer Vision",
+    "nlp": "Natural Language Processing",
+    "robotics": "Robotics",
+    "quantum": "Quantum Computing",
+    "blockchain": "Blockchain"
+  },
+  "main": {
+    "totalSolutions": "solutions",
+    "total": "Total"
+  },
+  "footer": {
+    "company": {
+      "description": "Building a better future through AI and technological innovation"
+    },
+    "services": {
+      "title": "Services",
+      "aiInfra": "AI Infrastructure",
+      "dataSolution": "Data Solutions",
+      "cloudService": "Cloud Services"
+    },
+    "contact": {
+      "title": "Contact"
+    },
+    "copyright": "© 2024 Bullora. All rights reserved."
+  }
+}
+
