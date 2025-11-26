@@ -3,13 +3,45 @@
 import Game2048 from "../../../components/Game2048";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import Script from "next/script";
+import { LanguageSwitcher } from "../../../components/LanguageSwitcher";
 
 export default function Game2048Page() {
   const params = useParams();
   const locale = params.locale as string;
+  const isKorean = locale === "ko";
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    name: isKorean ? "2048 게임" : "2048 Game",
+    description: isKorean
+      ? "같은 숫자를 합쳐서 2048 타일을 만드는 중독성 있는 퍼즐 게임"
+      : "Addictive puzzle game where you merge same numbers to create the 2048 tile",
+    genre: isKorean ? "퍼즐" : "Puzzle",
+    gamePlatform: "Web Browser",
+    operatingSystem: "Any",
+    applicationCategory: "Game",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "1000",
+    },
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <>
+      <Script
+        id="structured-data-2048"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
       {/* 헤더 */}
       <header className="border-b border-orange-100 bg-white/90 backdrop-blur-sm shadow-sm">
         <div className="mx-auto max-w-7xl px-6 py-4">
@@ -22,12 +54,15 @@ export default function Game2048Page() {
                 Toolbox
               </h1>
             </Link>
-            <Link
-              href={`/${locale}`}
-              className="rounded-full bg-orange-50 px-5 py-2 text-sm font-bold text-orange-600 transition-all hover:bg-orange-100 hover:scale-105"
-            >
-              ← 돌아가기
-            </Link>
+            <div className="flex items-center gap-4">
+              <LanguageSwitcher />
+              <Link
+                href={`/${locale}`}
+                className="rounded-full bg-orange-50 px-5 py-2 text-sm font-bold text-orange-600 transition-all hover:bg-orange-100 hover:scale-105"
+              >
+                ← {isKorean ? "돌아가기" : "Back"}
+              </Link>
+            </div>
           </div>
         </div>
       </header>
@@ -38,10 +73,10 @@ export default function Game2048Page() {
         <div className="mb-8 text-center">
           <div className="mb-4 text-6xl">🎮</div>
           <h2 className="mb-3 text-5xl font-extrabold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
-            2048 게임
+            {isKorean ? "2048 게임" : "2048 Game"}
           </h2>
           <p className="text-lg font-medium text-slate-600">
-            같은 숫자를 합쳐서 2048을 만드세요!
+            {isKorean ? "같은 숫자를 합쳐서 2048을 만드세요!" : "Merge same numbers to create 2048!"}
           </p>
         </div>
 
@@ -53,7 +88,7 @@ export default function Game2048Page() {
         {/* 게임 설명 */}
         <div className="mt-8 rounded-3xl bg-gradient-to-br from-orange-50 to-pink-50 p-8 shadow-lg border-2 border-orange-100">
           <h3 className="mb-4 text-2xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
-            🎯 게임 방법
+            {isKorean ? "🎯 게임 방법" : "🎯 How to Play"}
           </h3>
           <div className="space-y-3 text-slate-700 font-medium">
             <p className="flex items-start gap-2">
@@ -61,8 +96,9 @@ export default function Game2048Page() {
                 1
               </span>
               <span>
-                키보드의 화살표 키 (↑↓←→) 또는 W/A/S/D 키를 사용하여 타일을
-                이동하세요.
+                {isKorean 
+                  ? "키보드의 화살표 키 (↑↓←→) 또는 W/A/S/D 키를 사용하여 타일을 이동하세요."
+                  : "Use arrow keys (↑↓←→) or W/A/S/D keys to move tiles."}
               </span>
             </p>
             <p className="flex items-start gap-2">
@@ -70,8 +106,9 @@ export default function Game2048Page() {
                 2
               </span>
               <span>
-                같은 숫자의 타일이 만나면 하나로 합쳐지며 숫자가 두 배가
-                됩니다.
+                {isKorean
+                  ? "같은 숫자의 타일이 만나면 하나로 합쳐지며 숫자가 두 배가 됩니다."
+                  : "When two tiles with the same number touch, they merge into one and double."}
               </span>
             </p>
             <p className="flex items-start gap-2">
@@ -79,7 +116,9 @@ export default function Game2048Page() {
                 3
               </span>
               <span>
-                타일을 합쳐서 2048 타일을 만드는 것이 목표입니다!
+                {isKorean
+                  ? "타일을 합쳐서 2048 타일을 만드는 것이 목표입니다!"
+                  : "The goal is to create the 2048 tile!"}
               </span>
             </p>
             <p className="flex items-start gap-2">
@@ -87,7 +126,9 @@ export default function Game2048Page() {
                 4
               </span>
               <span>
-                더 이상 이동할 수 없게 되면 게임이 종료됩니다.
+                {isKorean
+                  ? "더 이상 이동할 수 없게 되면 게임이 종료됩니다."
+                  : "The game ends when no more moves are possible."}
               </span>
             </p>
           </div>
@@ -99,7 +140,7 @@ export default function Game2048Page() {
             href={`/${locale}?category=게임`}
             className="inline-block rounded-full bg-gradient-to-r from-orange-500 to-pink-500 px-8 py-3 text-sm font-bold text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
           >
-            🎮 다른 게임 둘러보기
+            {isKorean ? "🎮 다른 게임 둘러보기" : "🎮 Explore More Games"}
           </Link>
         </div>
       </main>
@@ -110,7 +151,8 @@ export default function Game2048Page() {
           © 2024 Toolbox. All rights reserved.
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
 

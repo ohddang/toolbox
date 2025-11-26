@@ -106,6 +106,34 @@ const tools: Tool[] = [
     date: "2024-11-26",
   },
   {
+    id: 16,
+    title: "룰렛 게임",
+    description:
+      "가중치 기반 공정한 룰렛! 항목과 확률을 자유롭게 설정하고 멋진 애니메이션으로 추첨하세요. 경품, 팀 나누기, 랜덤 선택 등 다양하게 활용 가능합니다.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "게임",
+    subCategory: "게임 런처",
+    tags: ["룰렛", "추첨", "가중치"],
+    price: "무료",
+    gameUrl: "/games/roulette",
+    date: "2024-11-26",
+  },
+  {
+    id: 100,
+    title: "시계 & 스톱워치",
+    description:
+      "큰 화면의 디지털 시계와 정밀한 스톱워치! 현재 시간을 한눈에 보거나 시간을 측정하세요. 모바일과 PC 모두 최적화되어 있습니다.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "유틸리티",
+    subCategory: "생산성",
+    tags: ["시계", "스톱워치", "타이머"],
+    price: "무료",
+    gameUrl: "/tools/clock",
+    date: "2024-11-26",
+  },
+  {
     id: 3,
     title: "GameOverlay Pro",
     description:
@@ -387,10 +415,10 @@ export default function Home() {
                   <button
                     key={category}
                     onClick={() => handleMainCategoryChange(category)}
-                    className={`text-sm font-medium transition-colors ${
+                    className={`text-sm font-bold transition-all rounded-full px-4 py-2 ${
                       selectedMainCategory === category
-                        ? "text-indigo-600"
-                        : "text-slate-600 hover:text-slate-900"
+                        ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-md"
+                        : "text-slate-600 hover:text-orange-600 hover:bg-orange-50"
                     }`}
                   >
                     {category === "게임"
@@ -437,7 +465,7 @@ export default function Home() {
                 <button
                   key={category}
                   onClick={() => handleMainCategoryChange(category)}
-                  className={`relative px-6 py-4 text-sm font-bold transition-all rounded-t-xl ${
+                  className={`relative px-6 py-4 text-sm font-bold transition-all ${
                     selectedMainCategory === category
                       ? "text-orange-600 bg-orange-50"
                       : "text-slate-600 hover:text-orange-500 hover:bg-orange-50/50"
@@ -467,11 +495,11 @@ export default function Home() {
                     <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-white/95 to-transparent" />
                     <button
                       onClick={() => scroll("left")}
-                      className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:scale-110 hover:bg-slate-50"
+                      className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-r from-orange-400 to-pink-500 shadow-lg transition-all hover:scale-110 hover:shadow-xl"
                       aria-label="Scroll left"
                     >
                       <svg
-                        className="h-5 w-5 text-slate-700"
+                        className="h-5 w-5 text-white"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -492,11 +520,11 @@ export default function Home() {
                     <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white/95 to-transparent" />
                     <button
                       onClick={() => scroll("right")}
-                      className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:scale-110 hover:bg-slate-50"
+                      className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-r from-orange-400 to-pink-500 shadow-lg transition-all hover:scale-110 hover:shadow-xl"
                       aria-label="Scroll right"
                     >
                       <svg
-                        className="h-5 w-5 text-slate-700"
+                        className="h-5 w-5 text-white"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"

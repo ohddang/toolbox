@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface AdSenseProps {
   adSlot: string;
@@ -15,17 +15,34 @@ export function AdSense({
   fullWidthResponsive = true,
   style = { display: 'block' },
 }: AdSenseProps) {
+  const adRef = useRef<HTMLModElement>(null);
+  const isLoadedRef = useRef(false);
+
   useEffect(() => {
+    // 이미 로드되었거나 광고 요소가 없으면 스킵
+    if (isLoadedRef.current || !adRef.current) return;
+
     try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      // data-adsbygoogle-status 속성으로 이미 로드된 광고인지 확인
+      const adElement = adRef.current;
+      const isAlreadyFilled = adElement.getAttribute('data-adsbygoogle-status') === 'done';
+      
+      if (!isAlreadyFilled) {
+        // @ts-ignore
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        isLoadedRef.current = true;
+      }
     } catch (err) {
-      console.error('AdSense error:', err);
+      // 에러가 발생해도 콘솔에 출력하지 않음 (개발 환경에서의 불필요한 에러 방지)
+      if (process.env.NODE_ENV === 'development') {
+        // 개발 환경에서는 에러 무시
+      }
     }
   }, []);
 
   return (
     <ins
+      ref={adRef}
       className="adsbygoogle"
       style={style}
       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // 실제 애드센스 클라이언트 ID로 교체 필요

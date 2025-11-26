@@ -9,15 +9,25 @@ interface LadderLine {
   row: number;
 }
 
-export default function LadderGame() {
+interface LadderGameProps {
+  locale?: string;
+}
+
+export default function LadderGame({ locale = "ko" }: LadderGameProps) {
   const canvasRef = useRef<HTMLDivElement>(null);
   const appRef = useRef<PIXI.Application | null>(null);
   const ladderContainerRef = useRef<PIXI.Container | null>(null);
   const animationContainerRef = useRef<PIXI.Container | null>(null);
   
+  const isKorean = locale === "ko";
+  
   const [players, setPlayers] = useState(4);
-  const [startNames, setStartNames] = useState(["민수", "영희", "철수", "지현"]);
-  const [results, setResults] = useState(["🎁 선물", "💎 보석", "🍀 행운", "🎉 축하"]);
+  const [startNames, setStartNames] = useState(
+    isKorean ? ["민수", "영희", "철수", "지현"] : ["Player 1", "Player 2", "Player 3", "Player 4"]
+  );
+  const [results, setResults] = useState(
+    isKorean ? ["🎁 선물", "💎 보석", "🍀 행운", "🎉 축하"] : ["🎁 Gift", "💎 Gem", "🍀 Luck", "🎉 Party"]
+  );
   const [gameStarted, setGameStarted] = useState(false);
   const [animatingStarts, setAnimatingStarts] = useState<Set<number>>(new Set());
   const [clickedStarts, setClickedStarts] = useState<Set<number>>(new Set());
@@ -433,12 +443,12 @@ export default function LadderGame() {
     setPlayers(num);
     
     const newStartNames = Array(num).fill("").map((_, i) => 
-      startNames[i] || `${i + 1}번`
+      startNames[i] || (isKorean ? `${i + 1}번` : `Player ${i + 1}`)
     );
     setStartNames(newStartNames);
     
     const newResults = Array(num).fill("").map((_, i) => 
-      results[i] || `${i + 1}번`
+      results[i] || (isKorean ? `${i + 1}번` : `Result ${i + 1}`)
     );
     setResults(newResults);
     
@@ -537,7 +547,7 @@ export default function LadderGame() {
         <div className="w-full max-w-2xl space-y-6">
           <div>
             <label className="mb-3 block text-sm font-bold text-slate-700">
-              참가자 수
+              {isKorean ? "참가자 수" : "Number of Participants"}
             </label>
             <div className="flex gap-2">
               {[2, 3, 4, 5, 6, 7, 8].map((num) => (
@@ -550,7 +560,7 @@ export default function LadderGame() {
                       : "bg-orange-50 text-orange-600 hover:bg-orange-100"
                   }`}
                 >
-                  {num}명
+                  {num}{isKorean ? "명" : ""}
                 </button>
               ))}
             </div>
@@ -558,7 +568,7 @@ export default function LadderGame() {
 
           <div>
             <label className="mb-3 block text-sm font-bold text-slate-700">
-              참가자 이름
+              {isKorean ? "참가자 이름" : "Participant Names"}
             </label>
             <div className="grid grid-cols-2 gap-3">
               {startNames.map((name, idx) => (
@@ -571,7 +581,7 @@ export default function LadderGame() {
                     newNames[idx] = e.target.value;
                     setStartNames(newNames);
                   }}
-                  placeholder={`${idx + 1}번 참가자`}
+                  placeholder={isKorean ? `${idx + 1}번 참가자` : `Participant ${idx + 1}`}
                   className="rounded-xl border-2 border-blue-100 bg-white px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none"
                 />
               ))}
@@ -580,7 +590,7 @@ export default function LadderGame() {
 
           <div>
             <label className="mb-3 block text-sm font-bold text-slate-700">
-              도착지 결과
+              {isKorean ? "도착지 결과" : "Results"}
             </label>
             <div className="grid grid-cols-2 gap-3">
               {results.map((result, idx) => (
@@ -593,7 +603,7 @@ export default function LadderGame() {
                     newResults[idx] = e.target.value;
                     setResults(newResults);
                   }}
-                  placeholder={`${idx + 1}번 결과`}
+                  placeholder={isKorean ? `${idx + 1}번 결과` : `Result ${idx + 1}`}
                   className="rounded-xl border-2 border-orange-100 bg-white px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none"
                 />
               ))}
@@ -604,7 +614,7 @@ export default function LadderGame() {
             onClick={startGame}
             className="w-full rounded-full bg-gradient-to-r from-orange-500 to-pink-500 py-4 text-lg font-bold text-white shadow-lg transition-all hover:scale-105"
           >
-            🎲 사다리 생성하기
+            {isKorean ? "🎲 사다리 생성하기" : "🎲 Generate Ladder"}
           </button>
         </div>
       ) : (
@@ -612,19 +622,25 @@ export default function LadderGame() {
           <div className="relative">
             {animatingStarts.size === 0 && clickedStarts.size < players && (
               <div className="mt-4 text-center text-sm font-medium text-slate-600 animate-bounce">
-                👆 시작 번호를 클릭하세요! ({clickedStarts.size}/{players})
+                {isKorean 
+                  ? `👆 시작 번호를 클릭하세요! (${clickedStarts.size}/${players})`
+                  : `👆 Click a start number! (${clickedStarts.size}/${players})`
+                }
               </div>
             )}
             
             {animatingStarts.size > 0 && (
               <div className="mt-4 text-center text-sm font-medium text-blue-600 animate-pulse">
-                🎲 애니메이션 진행 중... ({animatingStarts.size}개)
+                {isKorean 
+                  ? `🎲 애니메이션 진행 중... (${animatingStarts.size}개)`
+                  : `🎲 Animating... (${animatingStarts.size})`
+                }
               </div>
             )}
             
             {animatingStarts.size === 0 && clickedStarts.size === players && (
               <div className="mt-4 text-center text-sm font-bold text-green-600">
-                ✅ 모든 결과를 확인했습니다!
+                {isKorean ? "✅ 모든 결과를 확인했습니다!" : "✅ All results checked!"}
               </div>
             )}
           </div>
@@ -639,7 +655,7 @@ export default function LadderGame() {
                   : "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-md hover:scale-105"
               }`}
             >
-              📊 모든 결과 한번에 보기
+              {isKorean ? "📊 모든 결과 한번에 보기" : "📊 Show All Results"}
             </button>
             
             <button
@@ -656,7 +672,7 @@ export default function LadderGame() {
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
-              ⚙️ 설정 변경
+              {isKorean ? "⚙️ 설정 변경" : "⚙️ Settings"}
             </button>
             
             <button
@@ -668,7 +684,7 @@ export default function LadderGame() {
                   : "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-md hover:scale-105"
               }`}
             >
-              🔄 새로운 사다리
+              {isKorean ? "🔄 새로운 사다리" : "🔄 New Ladder"}
             </button>
           </div>
         </>

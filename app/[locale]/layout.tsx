@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { locales, type Locale } from "../i18n/settings";
 import { notFound } from "next/navigation";
+import type { ReactElement } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -157,7 +158,7 @@ export default async function LocaleLayout({
 }: Readonly<{
   children: React.ReactNode;
   params: Promise<{ locale: Locale }>;
-}>) {
+}>): Promise<ReactElement> {
   const { locale } = await params;
 
   // 유효한 로케일인지 확인

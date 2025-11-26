@@ -22,15 +22,15 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center rounded-full bg-slate-100 p-1">
       {locales.map((locale) => (
         <button
           key={locale}
           onClick={() => switchLanguage(locale)}
-          className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+          className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
             currentLocale === locale
-              ? 'bg-blue-600 text-white'
-              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              ? 'bg-white text-slate-900 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
           }`}
           aria-label={`Switch to ${localeNames[locale]}`}
         >
