@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import Link from "next/link";
+import React, { useState, useRef } from "react";
 import {
   generateOrganizationSchema,
   generateWebSiteSchema,
@@ -11,231 +12,290 @@ import { useTranslation } from "../i18n/client";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { DisplayAd, InFeedAd } from "../components/AdSense";
 
-type Category =
-  | "전체"
-  | "AI인프라"
-  | "AI데이터"
-  | "반도체"
-  | "클라우드"
-  | "머신러닝"
-  | "딥러닝"
-  | "컴퓨터비전"
-  | "자연어처리"
-  | "로보틱스"
-  | "양자컴퓨팅"
-  | "블록체인";
+type MainCategory = "전체" | "게임" | "유틸리티" | "최신정보";
 
-interface Card {
+type SubCategory =
+  | "전체"
+  | "게임 오버레이"
+  | "성능 최적화"
+  | "녹화/스트리밍"
+  | "게임 런처"
+  | "시스템 도구"
+  | "파일 관리"
+  | "생산성"
+  | "미디어 도구"
+  | "개발 도구"
+  | "업데이트"
+  | "뉴스"
+  | "팁 & 트릭";
+
+interface Tool {
   id: number;
   title: string;
   description: string;
   imageUrl: string;
-  category: Category;
+  mainCategory: MainCategory;
+  subCategory: SubCategory;
   tags: string[];
-  author: string;
+  price: "무료" | "유료" | "프리미엄";
+  downloadUrl?: string;
+  gameUrl?: string;
   date: string;
 }
 
-const categoryKeys: Record<Category, string> = {
+const categoryKeys: Record<SubCategory, string> = {
   전체: "all",
-  AI인프라: "aiInfra",
-  AI데이터: "aiData",
-  반도체: "semiconductor",
-  클라우드: "cloud",
-  머신러닝: "machineLearning",
-  딥러닝: "deepLearning",
-  컴퓨터비전: "computerVision",
-  자연어처리: "nlp",
-  로보틱스: "robotics",
-  양자컴퓨팅: "quantum",
-  블록체인: "blockchain",
+  "게임 오버레이": "gameOverlay",
+  "성능 최적화": "performance",
+  "녹화/스트리밍": "recording",
+  "게임 런처": "gameLauncher",
+  "시스템 도구": "systemTools",
+  "파일 관리": "fileManager",
+  생산성: "productivity",
+  "미디어 도구": "mediaTools",
+  "개발 도구": "devTools",
+  업데이트: "updates",
+  뉴스: "newsArticles",
+  "팁 & 트릭": "tips",
 };
 
-const categories: Category[] = [
-  "전체",
-  "AI인프라",
-  "AI데이터",
-  "반도체",
-  "클라우드",
-  "머신러닝",
-  "딥러닝",
-  "컴퓨터비전",
-  "자연어처리",
-  "로보틱스",
-  "양자컴퓨팅",
-  "블록체인",
-];
+const mainCategories: MainCategory[] = ["전체", "게임", "유틸리티", "최신정보"];
 
-const cards: Card[] = [
+const subCategoriesByMain: Record<MainCategory, SubCategory[]> = {
+  전체: ["전체"],
+  게임: ["전체", "게임 오버레이", "성능 최적화", "녹화/스트리밍", "게임 런처"],
+  유틸리티: [
+    "전체",
+    "시스템 도구",
+    "파일 관리",
+    "생산성",
+    "미디어 도구",
+    "개발 도구",
+  ],
+  최신정보: ["전체", "업데이트", "뉴스", "팁 & 트릭"],
+};
+
+const tools: Tool[] = [
+  // 게임 카테고리
   {
     id: 1,
-    title: "차세대 AI 학습 플랫폼",
+    title: "2048 게임",
     description:
-      "대규모 언어 모델 학습을 위한 최적화된 인프라로 빠르고 효율적인 AI 개발 환경을 제공합니다.",
+      "중독성 있는 퍼즐 게임! 같은 숫자를 합쳐서 2048 타일을 만드세요. 간단하지만 전략적인 사고가 필요한 클래식 게임입니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80",
-    category: "AI인프라",
-    tags: ["LLM", "GPU클러스터", "분산학습"],
-    author: "김태현",
-    date: "2024-11-10",
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "게임",
+    subCategory: "게임 런처",
+    tags: ["퍼즐", "전략", "클래식"],
+    price: "무료",
+    gameUrl: "/games/2048",
+    date: "2024-11-26",
   },
   {
     id: 2,
-    title: "고품질 데이터셋 구축",
+    title: "사다리 게임",
     description:
-      "정제된 라벨링 데이터와 다양한 도메인의 데이터셋으로 AI 모델의 성능을 극대화합니다.",
+      "공정한 추첨이 필요할 때! 참가자와 결과를 설정하고 사다리를 타세요. 애니메이션으로 재미있게 결과를 확인할 수 있습니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-    category: "AI데이터",
-    tags: ["데이터라벨링", "품질관리", "대규모"],
-    author: "이서연",
-    date: "2024-11-09",
+      "https://images.unsplash.com/photo-1606868306217-dbf5046868d2?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "게임",
+    subCategory: "게임 런처",
+    tags: ["추첨", "사다리타기", "공정"],
+    price: "무료",
+    gameUrl: "/games/ladder",
+    date: "2024-11-26",
   },
   {
     id: 3,
-    title: "7nm 공정 반도체 칩",
+    title: "GameOverlay Pro",
     description:
-      "최첨단 미세 공정 기술로 제작된 고성능 반도체 칩은 전력 효율과 연산 능력을 동시에 향상시킵니다.",
+      "실시간 FPS, CPU, GPU 사용률을 게임 화면에 오버레이로 표시하는 강력한 도구입니다. 커스터마이징 가능한 위젯으로 완벽한 모니터링을 제공합니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-    category: "반도체",
-    tags: ["7nm", "저전력", "고성능"],
-    author: "박준서",
-    date: "2024-11-08",
+      "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "게임",
+    subCategory: "게임 오버레이",
+    tags: ["FPS표시", "모니터링", "커스터마이징"],
+    price: "무료",
+    date: "2024-11-20",
   },
   {
     id: 4,
-    title: "멀티 클라우드 솔루션",
+    title: "BoostFX",
     description:
-      "AWS, Azure, GCP를 통합 관리하며 최적의 비용과 성능으로 클라우드 인프라를 운영합니다.",
+      "게임 성능을 최적화하여 낮은 사양에서도 부드러운 게임플레이를 경험하세요. AI 기반 설정 최적화로 최고의 성능을 제공합니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    category: "클라우드",
-    tags: ["멀티클라우드", "비용최적화", "통합관리"],
-    author: "최민지",
-    date: "2024-11-07",
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "게임",
+    subCategory: "성능 최적화",
+    tags: ["최적화", "FPS향상", "저사양"],
+    price: "프리미엄",
+    date: "2024-11-19",
   },
   {
     id: 5,
-    title: "실시간 AI 추론 엔진",
+    title: "StreamCapture",
     description:
-      "밀리초 단위의 낮은 지연시간으로 대용량 실시간 추론을 처리하는 고성능 AI 인프라입니다.",
+      "고품질 게임 녹화와 라이브 스트리밍을 한 번에! 낮은 CPU 사용률로 4K 60FPS 녹화를 지원합니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
-    category: "AI인프라",
-    tags: ["실시간", "저지연", "고성능"],
-    author: "정우진",
-    date: "2024-11-06",
+      "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "게임",
+    subCategory: "녹화/스트리밍",
+    tags: ["녹화", "스트리밍", "4K"],
+    price: "유료",
+    date: "2024-11-18",
   },
   {
     id: 6,
-    title: "합성 데이터 생성 시스템",
+    title: "GameHub Launcher",
     description:
-      "프라이버시 보호와 데이터 부족 문제를 해결하는 고품질 합성 데이터를 자동으로 생성합니다.",
+      "모든 게임 플랫폼을 하나로 통합! Steam, Epic, Origin 등 모든 게임을 한 곳에서 실행하세요.",
     imageUrl:
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1200&q=80",
-    category: "AI데이터",
-    tags: ["합성데이터", "프라이버시", "자동화"],
-    author: "강수아",
-    date: "2024-11-05",
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "게임",
+    subCategory: "게임 런처",
+    tags: ["통합런처", "멀티플랫폼", "관리"],
+    price: "무료",
+    date: "2024-11-17",
   },
+
+  // 유틸리티 카테고리
   {
     id: 7,
-    title: "강화학습 기반 자동화",
+    title: "SystemCleaner Pro",
     description:
-      "복잡한 의사결정 프로세스를 강화학습 알고리즘으로 최적화하여 자동으로 학습합니다.",
+      "불필요한 파일을 삭제하고 시스템을 최적화합니다. 레지스트리 정리, 임시 파일 삭제, 시작 프로그램 관리까지 한 번에!",
     imageUrl:
-      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80",
-    category: "머신러닝",
-    tags: ["강화학습", "자동화", "최적화"],
-    author: "윤도현",
-    date: "2024-11-04",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "유틸리티",
+    subCategory: "시스템 도구",
+    tags: ["시스템정리", "최적화", "속도향상"],
+    price: "프리미엄",
+    date: "2024-11-16",
   },
   {
     id: 8,
-    title: "신경망 아키텍처 탐색",
+    title: "FileManager X",
     description:
-      "최신 딥러닝 아키텍처를 자동으로 탐색하고 최적의 모델 구조를 찾아냅니다.",
+      "강력한 파일 관리 도구로 대용량 파일 찾기, 중복 파일 삭제, 고급 검색 기능을 제공합니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80",
-    category: "딥러닝",
-    tags: ["NAS", "AutoML", "모델탐색"],
-    author: "한지우",
-    date: "2024-11-03",
+      "https://images.unsplash.com/photo-1544396821-4dd40b938ad3?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "유틸리티",
+    subCategory: "파일 관리",
+    tags: ["파일관리", "중복삭제", "검색"],
+    price: "무료",
+    date: "2024-11-15",
   },
   {
     id: 9,
-    title: "실시간 객체 인식 시스템",
+    title: "TaskMaster",
     description:
-      "고해상도 영상에서 실시간으로 객체를 탐지하고 분류하는 컴퓨터 비전 솔루션입니다.",
+      "생산성을 극대화하는 올인원 작업 관리 도구. 할 일 관리, 포모도로 타이머, 프로젝트 트래킹을 지원합니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=1200&q=80",
-    category: "컴퓨터비전",
-    tags: ["객체인식", "실시간", "영상처리"],
-    author: "오서준",
-    date: "2024-11-02",
+      "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "유틸리티",
+    subCategory: "생산성",
+    tags: ["작업관리", "포모도로", "생산성"],
+    price: "프리미엄",
+    date: "2024-11-14",
   },
   {
     id: 10,
-    title: "다국어 번역 엔진",
+    title: "MediaConverter Plus",
     description:
-      "100개 이상의 언어를 지원하는 고품질 신경망 기반 번역 시스템으로 문맥을 이해합니다.",
+      "비디오, 오디오, 이미지를 빠르게 변환하세요. 100개 이상의 포맷을 지원하며 배치 변환 기능을 제공합니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=1200&q=80",
-    category: "자연어처리",
-    tags: ["번역", "다국어", "NLP"],
-    author: "임하은",
-    date: "2024-11-01",
+      "https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "유틸리티",
+    subCategory: "미디어 도구",
+    tags: ["변환", "비디오", "오디오"],
+    price: "유료",
+    date: "2024-11-13",
   },
   {
     id: 11,
-    title: "자율주행 로봇 플랫폼",
+    title: "CodeEditor Pro",
     description:
-      "SLAM 기술과 경로 계획 알고리즘을 통합하여 다양한 환경에서 자율 주행이 가능합니다.",
+      "가볍고 빠른 코드 에디터로 개발자를 위한 필수 도구입니다. 문법 강조, 자동완성, Git 통합을 지원합니다.",
     imageUrl:
-      "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?auto=format&fit=crop&w=1200&q=80",
-    category: "로보틱스",
-    tags: ["자율주행", "SLAM", "경로계획"],
-    author: "신예준",
-    date: "2024-10-31",
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "유틸리티",
+    subCategory: "개발 도구",
+    tags: ["코드에디터", "개발", "Git"],
+    price: "무료",
+    date: "2024-11-12",
   },
+
+  // 최신정보 카테고리
   {
     id: 12,
-    title: "양자 암호화 통신",
+    title: "Windows 12 주요 기능 업데이트",
     description:
-      "양자역학 원리를 활용한 해킹 불가능한 차세대 보안 통신 시스템을 구축합니다.",
+      "Windows 12의 새로운 기능들을 살펴보세요. AI 통합, 향상된 성능, 그리고 혁신적인 UI 디자인까지!",
     imageUrl:
-      "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80",
-    category: "양자컴퓨팅",
-    tags: ["양자암호", "보안", "통신"],
-    author: "조시현",
-    date: "2024-10-30",
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "최신정보",
+    subCategory: "업데이트",
+    tags: ["Windows", "업데이트", "신기능"],
+    price: "무료",
+    date: "2024-11-26",
   },
   {
     id: 13,
-    title: "탈중앙화 AI 마켓플레이스",
+    title: "2024년 최고의 무료 소프트웨어 TOP 10",
     description:
-      "블록체인 기술로 AI 모델과 데이터를 안전하게 거래하는 분산형 플랫폼입니다.",
+      "올해 가장 인기 있는 무료 소프트웨어를 소개합니다. 생산성부터 엔터테인먼트까지 모두 포함!",
     imageUrl:
-      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80",
-    category: "블록체인",
-    tags: ["블록체인", "마켓플레이스", "탈중앙화"],
-    author: "배윤서",
-    date: "2024-10-29",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "최신정보",
+    subCategory: "뉴스",
+    tags: ["리뷰", "무료", "추천"],
+    price: "무료",
+    date: "2024-11-25",
+  },
+  {
+    id: 14,
+    title: "PC 성능 10배 높이는 숨은 설정",
+    description:
+      "대부분의 사용자가 모르는 Windows 숨은 설정으로 컴퓨터 성능을 극대화하는 방법을 알려드립니다.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "최신정보",
+    subCategory: "팁 & 트릭",
+    tags: ["팁", "성능", "최적화"],
+    price: "무료",
+    date: "2024-11-24",
+  },
+  {
+    id: 15,
+    title: "GPU Driver 최신 버전 출시",
+    description:
+      "NVIDIA와 AMD에서 새로운 드라이버를 출시했습니다. 최대 20% 성능 향상과 버그 수정이 포함되어 있습니다.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=1200&q=80",
+    mainCategory: "최신정보",
+    subCategory: "업데이트",
+    tags: ["GPU", "드라이버", "업데이트"],
+    price: "무료",
+    date: "2024-11-23",
   },
 ];
 
 export default function Home() {
   const { t, locale } = useTranslation();
-  const [selectedCategory, setSelectedCategory] = useState<Category>("전체");
+  const [selectedMainCategory, setSelectedMainCategory] =
+    useState<MainCategory>("전체");
+  const [selectedSubCategory, setSelectedSubCategory] =
+    useState<SubCategory>("전체");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 
-  const filteredCards =
-    selectedCategory === "전체"
-      ? cards
-      : cards.filter((card) => card.category === selectedCategory);
+  const filteredTools = tools.filter((tool) => {
+    if (selectedMainCategory === "전체") return true;
+    if (tool.mainCategory !== selectedMainCategory) return false;
+    if (selectedSubCategory === "전체") return true;
+    return tool.subCategory === selectedSubCategory;
+  });
 
   const organizationSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
@@ -266,6 +326,24 @@ export default function Home() {
     });
   };
 
+  const handleMainCategoryChange = (category: MainCategory) => {
+    setSelectedMainCategory(category);
+    setSelectedSubCategory("전체");
+  };
+
+  const getPriceColor = (price: string) => {
+    switch (price) {
+      case "무료":
+        return "bg-green-50 text-green-700";
+      case "유료":
+        return "bg-blue-50 text-blue-700";
+      case "프리미엄":
+        return "bg-purple-50 text-purple-700";
+      default:
+        return "bg-slate-50 text-slate-700";
+    }
+  };
+
   return (
     <>
       {/* Structured Data for SEO */}
@@ -290,53 +368,56 @@ export default function Home() {
 
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
         {/* Header */}
-        <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm">
+        <header className="sticky top-0 z-30 border-b border-orange-100 bg-white/90 backdrop-blur-sm shadow-sm">
           <div className="mx-auto max-w-7xl px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600">
-                  <span className="text-lg font-bold text-white">B</span>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-pink-500 shadow-lg rotate-3 hover:rotate-0 transition-transform">
+                  <span className="text-2xl font-bold text-white">🧰</span>
                 </div>
-                <h1 className="text-2xl font-bold text-slate-900">Bullora</h1>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
+                  Toolbox
+                </h1>
               </div>
               <nav
-                className="hidden items-center gap-8 md:flex"
-                aria-label={t("header.services")}
+                className="hidden items-center gap-6 md:flex"
+                aria-label="Main navigation"
               >
-                <a
-                  href="#about"
-                  className="text-sm font-medium text-slate-600 hover:text-slate-900"
-                >
-                  {t("header.about")}
-                </a>
-                <a
-                  href="#services"
-                  className="text-sm font-medium text-slate-600 hover:text-slate-900"
-                >
-                  {t("header.services")}
-                </a>
-                <a
-                  href="#contact"
-                  className="text-sm font-medium text-slate-600 hover:text-slate-900"
-                >
-                  {t("header.contact")}
-                </a>
+                {mainCategories.slice(1).map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => handleMainCategoryChange(category)}
+                    className={`text-sm font-medium transition-colors ${
+                      selectedMainCategory === category
+                        ? "text-indigo-600"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    {category === "게임"
+                      ? t("header.games")
+                      : category === "유틸리티"
+                        ? t("header.utilities")
+                        : t("header.news")}
+                  </button>
+                ))}
                 <LanguageSwitcher />
-                <button className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700">
-                  {t("header.getStarted")}
-                </button>
               </nav>
             </div>
           </div>
         </header>
 
         {/* Hero Section */}
-        <section className="border-b border-slate-200 bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-16 text-center">
-            <h2 className="mb-4 text-5xl font-extrabold tracking-tight text-slate-900">
+        <section className="border-b border-orange-100 bg-gradient-to-r from-orange-400 via-pink-400 to-rose-400">
+          <div className="mx-auto max-w-7xl px-6 py-20 text-center">
+            <div className="mb-4 flex justify-center gap-3 text-5xl">
+              <span className="animate-bounce">🎮</span>
+              <span className="animate-bounce delay-100">🛠️</span>
+              <span className="animate-bounce delay-200">✨</span>
+            </div>
+            <h2 className="mb-4 text-5xl font-extrabold tracking-tight text-white drop-shadow-lg">
               {t("hero.title")}
             </h2>
-            <p className="mx-auto max-w-2xl text-xl text-slate-600">
+            <p className="mx-auto max-w-2xl text-xl text-white/95 font-medium">
               {t("hero.subtitle")}
             </p>
           </div>
@@ -348,181 +429,213 @@ export default function Home() {
         </section>
 
         {/* Category Filter */}
-        <div className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md">
-          <div className="mx-auto max-w-7xl">
-            <div className="relative">
-              {/* Left Gradient Fade & Arrow */}
-              {showLeftArrow && (
-                <>
-                  <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-white/95 to-transparent" />
-                  <button
-                    onClick={() => scroll("left")}
-                    className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:scale-110 hover:bg-slate-50"
-                    aria-label="Scroll left"
-                  >
-                    <svg
-                      className="h-5 w-5 text-slate-700"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                  </button>
-                </>
-              )}
+        <div className="sticky top-[73px] z-20 border-b border-orange-100 bg-white/95 shadow-md backdrop-blur-md">
+          {/* Main Category Tabs */}
+          <div className="mx-auto max-w-7xl border-b border-orange-50">
+            <div className="flex gap-2 px-6">
+              {mainCategories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleMainCategoryChange(category)}
+                  className={`relative px-6 py-4 text-sm font-bold transition-all rounded-t-xl ${
+                    selectedMainCategory === category
+                      ? "text-orange-600 bg-orange-50"
+                      : "text-slate-600 hover:text-orange-500 hover:bg-orange-50/50"
+                  }`}
+                >
+                  {category === "전체"
+                    ? t("categories.all")
+                    : category === "게임"
+                      ? t("header.games")
+                      : category === "유틸리티"
+                        ? t("header.utilities")
+                        : t("header.news")}
+                  {selectedMainCategory === category && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-pink-500 rounded-full" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
 
-              {/* Right Gradient Fade & Arrow */}
-              {showRightArrow && (
-                <>
-                  <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white/95 to-transparent" />
-                  <button
-                    onClick={() => scroll("right")}
-                    className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:scale-110 hover:bg-slate-50"
-                    aria-label="Scroll right"
-                  >
-                    <svg
-                      className="h-5 w-5 text-slate-700"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+          {/* Sub Category Pills */}
+          {selectedMainCategory !== "전체" && (
+            <div className="mx-auto max-w-7xl">
+              <div className="relative">
+                {showLeftArrow && (
+                  <>
+                    <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-white/95 to-transparent" />
+                    <button
+                      onClick={() => scroll("left")}
+                      className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:scale-110 hover:bg-slate-50"
+                      aria-label="Scroll left"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
-                </>
-              )}
+                      <svg
+                        className="h-5 w-5 text-slate-700"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 19l-7-7 7-7"
+                        />
+                      </svg>
+                    </button>
+                  </>
+                )}
 
-              {/* Scrollable Category Buttons */}
-              <div
-                ref={scrollContainerRef}
-                onScroll={handleScroll}
-                className="scrollbar-hide flex gap-2 overflow-x-auto px-6 py-4 scroll-smooth"
-                style={{
-                  scrollbarWidth: "none",
-                  msOverflowStyle: "none",
-                }}
-              >
-                {categories.map((category) => (
+                {showRightArrow && (
+                  <>
+                    <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white/95 to-transparent" />
+                    <button
+                      onClick={() => scroll("right")}
+                      className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:scale-110 hover:bg-slate-50"
+                      aria-label="Scroll right"
+                    >
+                      <svg
+                        className="h-5 w-5 text-slate-700"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </button>
+                  </>
+                )}
+
+                <div
+                  ref={scrollContainerRef}
+                  onScroll={handleScroll}
+                  className="scrollbar-hide flex gap-2 overflow-x-auto px-6 py-4 scroll-smooth"
+                  style={{
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                  }}
+                >
+                  {subCategoriesByMain[selectedMainCategory].map((category) => (
                   <button
                     key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`whitespace-nowrap rounded-lg px-5 py-2.5 text-sm font-semibold transition-all ${
-                      selectedCategory === category
-                        ? "bg-blue-600 text-white shadow-md shadow-blue-200"
-                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    onClick={() => setSelectedSubCategory(category)}
+                    className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
+                      selectedSubCategory === category
+                        ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-lg shadow-orange-200"
+                        : "bg-orange-50 text-orange-700 hover:bg-orange-100"
                     }`}
                   >
                     {t(`categories.${categoryKeys[category]}`)}
                   </button>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Main Content */}
-        <main id="services" className="mx-auto max-w-7xl px-6 py-12">
+        <main className="mx-auto max-w-7xl px-6 py-12">
           <div className="mb-6 flex items-center justify-between">
             <p className="text-sm text-slate-600">
               {t("main.total")}{" "}
               <span className="font-semibold text-slate-900">
-                {filteredCards.length}
+                {filteredTools.length}
               </span>
-              {t("main.totalSolutions")}
+              {t("main.totalTools")}
             </p>
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredCards.map((card, index) => (
-              <>
-                <article
-                  key={card.id}
-                  className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-all hover:shadow-xl"
-                  itemScope
-                  itemType="https://schema.org/Article"
+            {filteredTools.map((tool, index) => (
+              <React.Fragment key={tool.id}>
+                <Link
+                  href={tool.gameUrl ? `/${locale}${tool.gameUrl}` : "#"}
+                  className={tool.gameUrl ? "" : "pointer-events-none"}
                 >
-                  <div className="relative h-56 w-full overflow-hidden bg-slate-200">
-                    <Image
-                      src={card.imageUrl}
-                      alt={`${card.title} - ${card.category}`}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      itemProp="image"
-                    />
-                    <div className="absolute right-3 top-3 rounded-lg bg-white/90 px-3 py-1 text-xs font-semibold text-slate-700 backdrop-blur-sm">
-                      {t(`categories.${categoryKeys[card.category]}`)}
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="mb-3 flex flex-wrap gap-2">
-                      {card.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700"
-                          itemProp="keywords"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <h3
-                      className="mb-3 text-xl font-bold text-slate-900 group-hover:text-blue-600"
-                      itemProp="headline"
-                    >
-                      {card.title}
-                    </h3>
-
-                    <p
-                      className="mb-4 line-clamp-3 text-sm leading-relaxed text-slate-600"
-                      itemProp="description"
-                    >
-                      {card.description}
-                    </p>
-
-                    <div className="flex items-center justify-between border-t border-slate-100 pt-4">
-                      <div className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 text-xs font-semibold text-white">
-                          {card.author.charAt(0)}
-                        </div>
-                        <span
-                          className="text-sm font-medium text-slate-700"
-                          itemProp="author"
-                        >
-                          {card.author}
-                        </span>
-                      </div>
-                      <time
-                        className="text-xs text-slate-500"
-                        dateTime={card.date}
-                        itemProp="datePublished"
+                  <article
+                    className={`group overflow-hidden rounded-3xl bg-white shadow-md transition-all hover:shadow-2xl hover:-translate-y-1 ${tool.gameUrl ? "cursor-pointer" : ""}`}
+                    itemScope
+                    itemType="https://schema.org/SoftwareApplication"
+                  >
+                    <div className="relative h-56 w-full overflow-hidden bg-slate-200">
+                      <Image
+                        src={tool.imageUrl}
+                        alt={`${tool.title} - ${tool.subCategory}`}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        itemProp="image"
+                      />
+                      <div
+                        className={`absolute right-3 top-3 rounded-lg px-3 py-1 text-xs font-semibold backdrop-blur-sm ${getPriceColor(tool.price)}`}
                       >
-                        {card.date}
-                      </time>
+                        {t(`main.${tool.price === "무료" ? "free" : tool.price === "유료" ? "paid" : "freemium"}`)}
+                      </div>
+                      {tool.gameUrl && (
+                        <div className="absolute left-3 top-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 px-3 py-1 text-xs font-bold text-white shadow-lg animate-pulse">
+                          ▶ 플레이 가능
+                        </div>
+                      )}
                     </div>
-                  </div>
-                </article>
 
-                {/* In-Feed Ad after every 6 cards */}
-                {(index + 1) % 6 === 0 && index !== filteredCards.length - 1 && (
+                    <div className="p-6">
+                      <div className="mb-3 flex flex-wrap gap-2">
+                        {tool.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-orange-600"
+                            itemProp="keywords"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <h3
+                        className="mb-3 text-xl font-bold text-slate-900 group-hover:text-orange-600"
+                        itemProp="name"
+                      >
+                        {tool.title}
+                      </h3>
+
+                      <p
+                        className="mb-4 line-clamp-3 text-sm leading-relaxed text-slate-600"
+                        itemProp="description"
+                      >
+                        {tool.description}
+                      </p>
+
+                      <div className="flex items-center justify-between border-t border-slate-100 pt-4">
+                        <span className="text-xs text-slate-500">{tool.date}</span>
+                        {tool.gameUrl && (
+                          <span className="rounded-full bg-gradient-to-r from-orange-500 to-pink-500 px-5 py-2 text-xs font-bold text-white shadow-md transition-all group-hover:shadow-lg group-hover:scale-105">
+                            지금 플레이 ▶
+                          </span>
+                        )}
+                        {!tool.gameUrl && (
+                          <span className="rounded-full bg-slate-300 px-5 py-2 text-xs font-bold text-slate-600">
+                            준비 중 ⏳
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                </Link>
+
+                {/* In-Feed Ad after every 6 tools */}
+                {(index + 1) % 6 === 0 && index !== filteredTools.length - 1 && (
                   <div className="sm:col-span-2 lg:col-span-3">
                     <InFeedAd adSlot="0987654321" />
                   </div>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </div>
 
@@ -531,16 +644,16 @@ export default function Home() {
         </main>
 
         {/* Footer */}
-        <footer id="contact" className="border-t border-slate-200 bg-white">
+        <footer className="border-t border-orange-100 bg-gradient-to-b from-orange-50 to-white">
           <div className="mx-auto max-w-7xl px-6 py-12">
             <div className="grid gap-8 md:grid-cols-4">
               <div className="md:col-span-2">
                 <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600">
-                    <span className="text-lg font-bold text-white">B</span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-pink-500 shadow-md">
+                    <span className="text-xl">🧰</span>
                   </div>
-                  <span className="text-xl font-bold text-slate-900">
-                    Bullora
+                  <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
+                    Toolbox
                   </span>
                 </div>
                 <p className="text-sm text-slate-600">
@@ -553,22 +666,28 @@ export default function Home() {
                 </h4>
                 <ul className="space-y-2 text-sm text-slate-600">
                   <li>
-                    <a
-                      href="#ai-infrastructure"
+                    <button
+                      onClick={() => handleMainCategoryChange("게임")}
                       className="hover:text-slate-900"
                     >
-                      {t("footer.services.aiInfra")}
-                    </a>
+                      {t("footer.services.games")}
+                    </button>
                   </li>
                   <li>
-                    <a href="#data-solution" className="hover:text-slate-900">
-                      {t("footer.services.dataSolution")}
-                    </a>
+                    <button
+                      onClick={() => handleMainCategoryChange("유틸리티")}
+                      className="hover:text-slate-900"
+                    >
+                      {t("footer.services.utilities")}
+                    </button>
                   </li>
                   <li>
-                    <a href="#cloud-service" className="hover:text-slate-900">
-                      {t("footer.services.cloudService")}
-                    </a>
+                    <button
+                      onClick={() => handleMainCategoryChange("최신정보")}
+                      className="hover:text-slate-900"
+                    >
+                      {t("footer.services.news")}
+                    </button>
                   </li>
                 </ul>
               </nav>
@@ -602,4 +721,3 @@ export default function Home() {
     </>
   );
 }
-

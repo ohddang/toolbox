@@ -28,30 +28,29 @@ export async function generateMetadata({
   const metadata: Record<Locale, Metadata> = {
     ko: {
       title:
-        "Bullora - AI & Tech Innovation Platform | AI인프라, 데이터, 반도체 솔루션",
+        "Toolbox - 유틸리티 소프트웨어 모음 | 게임, 유틸리티, 최신 정보",
       description:
-        "Bullora는 AI인프라, AI데이터, 반도체, 클라우드, 머신러닝, 딥러닝, 컴퓨터비전, 자연어처리 등 최첨단 AI 기술과 혁신적인 솔루션을 제공하는 선도적인 기술 플랫폼입니다.",
+        "Toolbox는 게임 도구, 시스템 유틸리티, 생산성 소프트웨어 등 다양한 유용한 프로그램을 한 곳에서 찾을 수 있는 플랫폼입니다. 무료 및 유료 소프트웨어를 쉽게 다운로드하고 최신 정보를 확인하세요.",
       keywords: [
-        "AI인프라",
-        "AI데이터",
-        "반도체",
-        "클라우드",
-        "머신러닝",
-        "딥러닝",
-        "컴퓨터비전",
-        "자연어처리",
-        "로보틱스",
-        "양자컴퓨팅",
-        "블록체인",
-        "AI솔루션",
-        "기술혁신",
+        "유틸리티 소프트웨어",
+        "게임 도구",
+        "시스템 최적화",
+        "파일 관리",
+        "생산성",
+        "미디어 도구",
+        "개발 도구",
+        "무료 소프트웨어",
+        "게임 오버레이",
+        "녹화 프로그램",
+        "스트리밍",
+        "소프트웨어 다운로드",
       ],
       openGraph: {
-        title: "Bullora - AI & Tech Innovation Platform",
+        title: "Toolbox - 유틸리티 소프트웨어 모음",
         description:
-          "최첨단 AI 기술과 혁신적인 솔루션으로 비즈니스의 미래를 만들어갑니다",
-        url: "https://bullora.com/ko",
-        siteName: "Bullora",
+          "유용한 소프트웨어를 한 곳에서 찾아보세요. 게임 도구부터 유틸리티까지!",
+        url: "https://toolbox.com/ko",
+        siteName: "Toolbox",
         locale: "ko_KR",
         type: "website",
         images: [
@@ -59,43 +58,42 @@ export async function generateMetadata({
             url: "/og-image.jpg",
             width: 1200,
             height: 630,
-            alt: "Bullora - AI & Tech Innovation Platform",
+            alt: "Toolbox - 유틸리티 소프트웨어 모음",
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title: "Bullora - AI & Tech Innovation Platform",
+        title: "Toolbox - 유틸리티 소프트웨어 모음",
         description:
-          "최첨단 AI 기술과 혁신적인 솔루션으로 비즈니스의 미래를 만들어갑니다",
+          "유용한 소프트웨어를 한 곳에서 찾아보세요. 게임 도구부터 유틸리티까지!",
         images: ["/og-image.jpg"],
       },
     },
     en: {
-      title: "Bullora - AI & Tech Innovation Platform | AI Infrastructure, Data, Semiconductor Solutions",
+      title: "Toolbox - Utility Software Collection | Games, Utilities, Latest News",
       description:
-        "Bullora is a leading technology platform providing cutting-edge AI technology and innovative solutions including AI infrastructure, AI data, semiconductors, cloud, machine learning, deep learning, computer vision, and natural language processing.",
+        "Toolbox is a platform where you can find various useful programs including game tools, system utilities, and productivity software in one place. Easily download free and paid software and check the latest information.",
       keywords: [
-        "AI Infrastructure",
-        "AI Data",
-        "Semiconductor",
-        "Cloud",
-        "Machine Learning",
-        "Deep Learning",
-        "Computer Vision",
-        "Natural Language Processing",
-        "Robotics",
-        "Quantum Computing",
-        "Blockchain",
-        "AI Solutions",
-        "Tech Innovation",
+        "Utility Software",
+        "Game Tools",
+        "System Optimization",
+        "File Management",
+        "Productivity",
+        "Media Tools",
+        "Developer Tools",
+        "Free Software",
+        "Game Overlay",
+        "Recording Software",
+        "Streaming",
+        "Software Download",
       ],
       openGraph: {
-        title: "Bullora - AI & Tech Innovation Platform",
+        title: "Toolbox - Utility Software Collection",
         description:
-          "Creating the future of business with cutting-edge AI technology and innovative solutions",
-        url: "https://bullora.com/en",
-        siteName: "Bullora",
+          "Find useful software in one place. From game tools to utilities!",
+        url: "https://toolbox.com/en",
+        siteName: "Toolbox",
         locale: "en_US",
         type: "website",
         images: [
@@ -103,15 +101,15 @@ export async function generateMetadata({
             url: "/og-image.jpg",
             width: 1200,
             height: 630,
-            alt: "Bullora - AI & Tech Innovation Platform",
+            alt: "Toolbox - Utility Software Collection",
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title: "Bullora - AI & Tech Innovation Platform",
+        title: "Toolbox - Utility Software Collection",
         description:
-          "Creating the future of business with cutting-edge AI technology and innovative solutions",
+          "Find useful software in one place. From game tools to utilities!",
         images: ["/og-image.jpg"],
       },
     },
@@ -119,15 +117,15 @@ export async function generateMetadata({
 
   return {
     ...metadata[locale],
-    authors: [{ name: "Bullora" }],
-    creator: "Bullora",
-    publisher: "Bullora",
+    authors: [{ name: "Toolbox" }],
+    creator: "Toolbox",
+    publisher: "Toolbox",
     formatDetection: {
       email: false,
       address: false,
       telephone: false,
     },
-    metadataBase: new URL("https://bullora.com"),
+    metadataBase: new URL("https://toolbox.com"),
     alternates: {
       canonical: `/${locale}`,
       languages: {
@@ -170,13 +168,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <head>
-        <link rel="canonical" href={`https://bullora.com/${locale}`} />
-        <link rel="alternate" hrefLang="ko" href="https://bullora.com/ko" />
-        <link rel="alternate" hrefLang="en" href="https://bullora.com/en" />
+        <link rel="canonical" href={`https://toolbox.com/${locale}`} />
+        <link rel="alternate" hrefLang="ko" href="https://toolbox.com/ko" />
+        <link rel="alternate" hrefLang="en" href="https://toolbox.com/en" />
         <link
           rel="alternate"
           hrefLang="x-default"
-          href="https://bullora.com/ko"
+          href="https://toolbox.com/ko"
         />
         {/* Google AdSense */}
         <script

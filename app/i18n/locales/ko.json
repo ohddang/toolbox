@@ -1,46 +1,51 @@
 {
   "header": {
-    "about": "소개",
-    "services": "서비스",
-    "contact": "문의하기",
-    "getStarted": "시작하기"
+    "games": "게임",
+    "utilities": "유틸리티",
+    "news": "최신정보",
+    "search": "검색"
   },
   "hero": {
-    "title": "AI & Tech Innovation",
-    "subtitle": "최첨단 AI 기술과 혁신적인 솔루션으로 비즈니스의 미래를 만들어갑니다"
+    "title": "유용한 소프트웨어를 한 곳에서",
+    "subtitle": "게임부터 유틸리티까지, 필요한 모든 소프트웨어를 찾아보세요"
   },
   "categories": {
     "all": "전체",
-    "aiInfra": "AI인프라",
-    "aiData": "AI데이터",
-    "semiconductor": "반도체",
-    "cloud": "클라우드",
-    "machineLearning": "머신러닝",
-    "deepLearning": "딥러닝",
-    "computerVision": "컴퓨터비전",
-    "nlp": "자연어처리",
-    "robotics": "로보틱스",
-    "quantum": "양자컴퓨팅",
-    "blockchain": "블록체인"
+    "gameOverlay": "게임 오버레이",
+    "performance": "성능 최적화",
+    "recording": "녹화/스트리밍",
+    "gameLauncher": "게임 런처",
+    "systemTools": "시스템 도구",
+    "fileManager": "파일 관리",
+    "productivity": "생산성",
+    "mediaTools": "미디어 도구",
+    "devTools": "개발 도구",
+    "updates": "업데이트",
+    "newsArticles": "뉴스",
+    "tips": "팁 & 트릭"
   },
   "main": {
-    "totalSolutions": "개의 솔루션",
-    "total": "총"
+    "totalTools": "개의 도구",
+    "total": "총",
+    "download": "다운로드",
+    "viewDetails": "자세히 보기",
+    "free": "무료",
+    "paid": "유료",
+    "freemium": "프리미엄"
   },
   "footer": {
     "company": {
-      "description": "AI와 기술 혁신을 통해 더 나은 미래를 만들어갑니다"
+      "description": "유용한 소프트웨어와 도구를 모아놓은 플랫폼입니다"
     },
     "services": {
-      "title": "서비스",
-      "aiInfra": "AI 인프라",
-      "dataSolution": "데이터 솔루션",
-      "cloudService": "클라우드"
+      "title": "카테고리",
+      "games": "게임",
+      "utilities": "유틸리티",
+      "news": "최신정보"
     },
     "contact": {
       "title": "문의"
     },
-    "copyright": "© 2024 Bullora. All rights reserved."
+    "copyright": "© 2024 Toolbox. All rights reserved."
   }
 }
-

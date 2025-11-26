@@ -2,23 +2,23 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Bullora",
-    url: "https://bullora.com",
-    logo: "https://bullora.com/logo.png",
+    name: "Toolbox",
+    url: "https://toolbox.com",
+    logo: "https://toolbox.com/logo.png",
     description:
-      "최첨단 AI 기술과 혁신적인 솔루션을 제공하는 선도적인 기술 플랫폼",
+      "유용한 소프트웨어와 게임 도구를 제공하는 플랫폼",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+82-2-1234-5678",
       contactType: "Customer Service",
-      email: "contact@bullora.com",
+      email: "contact@toolbox.com",
       areaServed: "KR",
       availableLanguage: ["Korean", "English"],
     },
     sameAs: [
-      "https://twitter.com/bullora",
-      "https://www.linkedin.com/company/bullora",
-      "https://github.com/bullora",
+      "https://twitter.com/toolbox",
+      "https://www.linkedin.com/company/toolbox",
+      "https://github.com/toolbox",
     ],
   };
 }
@@ -27,15 +27,15 @@ export function generateWebSiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Bullora",
-    url: "https://bullora.com",
+    name: "Toolbox",
+    url: "https://toolbox.com",
     description:
-      "AI인프라, AI데이터, 반도체, 클라우드 등 최첨단 기술 솔루션 제공",
+      "게임, 유틸리티, 최신 소프트웨어 정보를 한 곳에서",
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://bullora.com/search?q={search_term_string}",
+        urlTemplate: "https://toolbox.com/search?q={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },
@@ -51,15 +51,14 @@ export function generateBreadcrumbSchema() {
         "@type": "ListItem",
         position: 1,
         name: "홈",
-        item: "https://bullora.com",
+        item: "https://toolbox.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "서비스",
-        item: "https://bullora.com/#services",
+        item: "https://toolbox.com/#services",
       },
     ],
   };
 }
-

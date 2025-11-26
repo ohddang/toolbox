@@ -1,46 +1,51 @@
 {
   "header": {
-    "about": "About",
-    "services": "Services",
-    "contact": "Contact",
-    "getStarted": "Get Started"
+    "games": "Games",
+    "utilities": "Utilities",
+    "news": "Latest News",
+    "search": "Search"
   },
   "hero": {
-    "title": "AI & Tech Innovation",
-    "subtitle": "Creating the future of business with cutting-edge AI technology and innovative solutions"
+    "title": "Useful Software in One Place",
+    "subtitle": "Discover all the software you need, from games to utilities"
   },
   "categories": {
     "all": "All",
-    "aiInfra": "AI Infrastructure",
-    "aiData": "AI Data",
-    "semiconductor": "Semiconductor",
-    "cloud": "Cloud",
-    "machineLearning": "Machine Learning",
-    "deepLearning": "Deep Learning",
-    "computerVision": "Computer Vision",
-    "nlp": "Natural Language Processing",
-    "robotics": "Robotics",
-    "quantum": "Quantum Computing",
-    "blockchain": "Blockchain"
+    "gameOverlay": "Game Overlay",
+    "performance": "Performance",
+    "recording": "Recording/Streaming",
+    "gameLauncher": "Game Launcher",
+    "systemTools": "System Tools",
+    "fileManager": "File Manager",
+    "productivity": "Productivity",
+    "mediaTools": "Media Tools",
+    "devTools": "Developer Tools",
+    "updates": "Updates",
+    "newsArticles": "News",
+    "tips": "Tips & Tricks"
   },
   "main": {
-    "totalSolutions": "solutions",
-    "total": "Total"
+    "totalTools": "tools",
+    "total": "Total",
+    "download": "Download",
+    "viewDetails": "View Details",
+    "free": "Free",
+    "paid": "Paid",
+    "freemium": "Freemium"
   },
   "footer": {
     "company": {
-      "description": "Building a better future through AI and technological innovation"
+      "description": "A platform that collects useful software and tools"
     },
     "services": {
-      "title": "Services",
-      "aiInfra": "AI Infrastructure",
-      "dataSolution": "Data Solutions",
-      "cloudService": "Cloud Services"
+      "title": "Categories",
+      "games": "Games",
+      "utilities": "Utilities",
+      "news": "Latest News"
     },
     "contact": {
       "title": "Contact"
     },
-    "copyright": "© 2024 Bullora. All rights reserved."
+    "copyright": "© 2024 Toolbox. All rights reserved."
   }
 }
-
