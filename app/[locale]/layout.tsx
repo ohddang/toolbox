@@ -4,6 +4,7 @@ import "../globals.css";
 import { locales, type Locale } from "../i18n/settings";
 import { notFound } from "next/navigation";
 import type { ReactElement } from "react";
+import { Analytics } from "../components/Analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,21 +55,12 @@ export async function generateMetadata({
         siteName: "Toolbox",
         locale: "ko_KR",
         type: "website",
-        images: [
-          {
-            url: "/og-image.jpg",
-            width: 1200,
-            height: 630,
-            alt: "Toolbox - 유틸리티 소프트웨어 모음",
-          },
-        ],
       },
       twitter: {
         card: "summary_large_image",
         title: "Toolbox - 유틸리티 소프트웨어 모음",
         description:
           "유용한 소프트웨어를 한 곳에서 찾아보세요. 게임 도구부터 유틸리티까지!",
-        images: ["/og-image.jpg"],
       },
     },
     en: {
@@ -97,21 +89,12 @@ export async function generateMetadata({
         siteName: "Toolbox",
         locale: "en_US",
         type: "website",
-        images: [
-          {
-            url: "/og-image.jpg",
-            width: 1200,
-            height: 630,
-            alt: "Toolbox - Utility Software Collection",
-          },
-        ],
       },
       twitter: {
         card: "summary_large_image",
         title: "Toolbox - Utility Software Collection",
         description:
           "Find useful software in one place. From game tools to utilities!",
-        images: ["/og-image.jpg"],
       },
     },
   };
@@ -187,6 +170,7 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
         {children}
       </body>
     </html>

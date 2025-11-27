@@ -9,17 +9,11 @@ export function generateOrganizationSchema() {
       "유용한 소프트웨어와 게임 도구를 제공하는 플랫폼",
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+82-2-1234-5678",
       contactType: "Customer Service",
-      email: "contact@toolbox.com",
+      email: "ohddang509@gmail.com",
       areaServed: "KR",
       availableLanguage: ["Korean", "English"],
     },
-    sameAs: [
-      "https://twitter.com/toolbox",
-      "https://www.linkedin.com/company/toolbox",
-      "https://github.com/toolbox",
-    ],
   };
 }
 

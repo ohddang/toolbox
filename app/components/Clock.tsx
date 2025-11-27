@@ -1,16 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 
 interface ClockProps {
   locale?: string;
 }
 
 export default function Clock({ locale = "ko" }: ClockProps) {
-  const pathname = usePathname();
-  const router = useRouter();
-  
   const [mounted, setMounted] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [stopwatchTime, setStopwatchTime] = useState(0);
@@ -18,22 +14,16 @@ export default function Clock({ locale = "ko" }: ClockProps) {
   const [mode, setMode] = useState<"clock" | "stopwatch">("clock");
   const [language, setLanguage] = useState<"ko" | "en">(locale === "ko" ? "ko" : "en");
 
-  // 언어 전환 핸들러
-  const handleLanguageSwitch = () => {
-    const newLang = language === "ko" ? "en" : "ko";
-    const newPath = pathname?.replace(`/${locale}`, `/${newLang}`) || `/${newLang}/tools/clock`;
-    
-    // 쿠키에 언어 설정 저장
-    document.cookie = `NEXT_LOCALE=${newLang}; path=/; max-age=31536000`;
-    
-    router.push(newPath);
-  };
-
   // 클라이언트 마운트 확인
   useEffect(() => {
     setMounted(true);
     setCurrentTime(new Date());
   }, []);
+
+  // locale 변경 감지
+  useEffect(() => {
+    setLanguage(locale === "ko" ? "ko" : "en");
+  }, [locale]);
 
   // 현재 시간 업데이트
   useEffect(() => {
@@ -140,22 +130,14 @@ export default function Clock({ locale = "ko" }: ClockProps) {
   // 클라이언트 마운트 전까지 로딩 표시
   if (!mounted) {
     return (
-      <div className="flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="flex min-h-[calc(100vh-73px)] w-full items-center justify-center">
         <div className="text-white" style={{ fontSize: 'clamp(1.5rem, 3vw, 3rem)' }}>⏳ Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-[1vw] relative">
-      {/* 언어 스위치 버튼 */}
-      <button
-        onClick={handleLanguageSwitch}
-        className="absolute top-[2vh] right-[2vw] rounded-full bg-white/10 px-[2vw] py-[1vh] backdrop-blur-lg font-bold text-white/80 hover:text-white hover:bg-white/20 transition-all"
-        style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1.5rem)' }}
-      >
-        {language === "ko" ? "🇺🇸 EN" : "🇰🇷 KO"}
-      </button>
+    <div className="flex min-h-[calc(100vh-73px)] w-full flex-col items-center justify-center p-[1vw] relative">
 
       {/* 모드 전환 버튼 */}
       <div className="mb-[5vh] flex rounded-full bg-white/10 p-[0.5vw] backdrop-blur-lg">

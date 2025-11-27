@@ -2,7 +2,7 @@
   "header": {
     "games": "Games",
     "utilities": "Utilities",
-    "news": "Latest News",
+    "tests": "Tests",
     "search": "Search"
   },
   "hero": {
@@ -10,19 +10,7 @@
     "subtitle": "Discover all the software you need, from games to utilities"
   },
   "categories": {
-    "all": "All",
-    "gameOverlay": "Game Overlay",
-    "performance": "Performance",
-    "recording": "Recording/Streaming",
-    "gameLauncher": "Game Launcher",
-    "systemTools": "System Tools",
-    "fileManager": "File Manager",
-    "productivity": "Productivity",
-    "mediaTools": "Media Tools",
-    "devTools": "Developer Tools",
-    "updates": "Updates",
-    "newsArticles": "News",
-    "tips": "Tips & Tricks"
+    "all": "All"
   },
   "main": {
     "totalTools": "tools",
@@ -41,11 +29,53 @@
       "title": "Categories",
       "games": "Games",
       "utilities": "Utilities",
-      "news": "Latest News"
+      "tests": "Tests"
     },
     "contact": {
       "title": "Contact"
     },
     "copyright": "© 2024 Toolbox. All rights reserved."
+  },
+  "tools": {
+    "1": {
+      "title": "2048 Game",
+      "description": "Addictive puzzle game! Merge same numbers to create the 2048 tile. Simple yet requires strategic thinking.",
+      "tags": ["Puzzle", "Strategy", "Classic"]
+    },
+    "2": {
+      "title": "Ladder Game",
+      "description": "Need a fair draw? Set participants and results, then climb the ladder. Check results with fun animations.",
+      "tags": ["Draw", "Ladder", "Fair"]
+    },
+    "16": {
+      "title": "Roulette Game",
+      "description": "Weight-based fair roulette! Set items and probabilities freely with stunning animations.",
+      "tags": ["Roulette", "Draw", "Weight"]
+    },
+    "17": {
+      "title": "Color Finder Game",
+      "description": "Brain training game to find different colored squares! Difficulty increases with each level.",
+      "tags": ["Brain", "Color", "Focus"]
+    },
+    "100": {
+      "title": "Clock & Stopwatch",
+      "description": "Large digital clock and precise stopwatch! Check time at a glance or measure time accurately.",
+      "tags": ["Clock", "Stopwatch", "Timer"]
+    },
+    "12": {
+      "title": "IQ Test",
+      "description": "Professional IQ test measuring logic, math, and pattern recognition! Check your intelligence quotient with 16 questions.",
+      "tags": ["IQ", "Intelligence", "Logic"]
+    },
+    "13": {
+      "title": "MBTI Personality Test",
+      "description": "Which of 16 personality types are you? Experience the world's most trusted personality assessment.",
+      "tags": ["MBTI", "Personality", "Type"]
+    },
+    "20": {
+      "title": "Estrogen/Testosterone Test",
+      "description": "What's your estrogen and testosterone tendencies? Fun personality test measuring emotional and logical traits!",
+      "tags": ["Estrogen", "Testosterone", "Tendency"]
+    }
   }
 }

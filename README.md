@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧰 Toolbox
 
-## Getting Started
+유용한 게임, 유틸리티, 테스트를 한 곳에서 제공하는 웹 플랫폼
 
-First, run the development server:
+## 🚀 시작하기
+
+### 개발 서버 실행
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 [http://localhost:3000](http://localhost:3000) 접속
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 프로덕션 빌드
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## 📦 주요 기능
 
-To learn more about Next.js, take a look at the following resources:
+### 게임 🎮
+- **2048 게임** - 클래식 퍼즐 게임
+- **사다리 게임** - 공정한 추첨 도구
+- **룰렛 게임** - 가중치 기반 룰렛
+- **색상 찾기 게임** - 두뇌 트레이닝
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 유틸리티 🛠️
+- **시계 & 스톱워치** - 대형 디지털 시계
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 테스트 📊
+- **IQ 테스트** - 지능 지수 측정
+- **MBTI 테스트** - 성격 유형 검사
+- **에겐/테토 테스트** - 성향 분석
 
-## Deploy on Vercel
+## 🌍 다국어 지원
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 🇰🇷 한국어 (Korean)
+- 🇺🇸 영어 (English)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ 기술 스택
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **i18n**: Custom i18n implementation
+- **Graphics**: PixiJS (게임용)
+- **SEO**: Structured Data, Sitemap, Robots.txt
+- **Analytics**: Google Analytics (선택)
+- **Ads**: Google AdSense (선택)
+
+## 📁 프로젝트 구조
+
+```
+app/
+├── [locale]/          # 언어별 라우팅
+│   ├── games/         # 게임 페이지들
+│   ├── tools/         # 유틸리티 페이지들
+│   ├── tests/         # 테스트 페이지들
+│   └── page.tsx       # 메인 페이지
+├── components/        # 재사용 가능한 컴포넌트
+├── i18n/             # 다국어 번역 파일
+└── ...
+```
+
+## 📄 문서
+
+- **배포 가이드**: [DEPLOYMENT.md](./DEPLOYMENT.md)
+- **AdSense 설정**: [ADSENSE_SETUP.md](./ADSENSE_SETUP.md)
+
+## 🔧 설정
+
+### 환경 변수
+
+`.env.production` 파일 생성:
+
+```env
+NEXT_PUBLIC_ADSENSE_ID=ca-pub-XXXXXXXXXXXXXXXX
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_SITE_URL=https://toolbox.com
+```
+
+### Google 서비스 설정
+
+1. **AdSense**: `app/[locale]/layout.tsx`에서 Publisher ID 교체
+2. **Analytics**: 환경 변수에 GA ID 설정
+3. **Search Console**: 사이트 소유권 확인 코드 교체
+
+## 📊 SEO 최적화
+
+- ✅ Structured Data (Schema.org)
+- ✅ Sitemap.xml 자동 생성
+- ✅ Robots.txt
+- ✅ OpenGraph & Twitter Cards
+- ✅ 다국어 hreflang 태그
+- ✅ 파비콘 & PWA Manifest
+- ✅ 보안 헤더 (HSTS, CSP 등)
+
+## 🚀 배포
+
+자세한 배포 가이드는 [DEPLOYMENT.md](./DEPLOYMENT.md)를 참고하세요.
+
+### Vercel (권장)
+
+```bash
+vercel --prod
+```
+
+### 기타 플랫폼
+
+```bash
+npm run build
+npm run start
+```
+
+## 📝 라이선스
+
+Private Project
+
+## 👨‍💻 개발자
+
+Toolbox Team

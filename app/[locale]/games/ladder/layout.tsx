@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       siteName: "Toolbox",
       images: [
         {
-          url: "https://images.unsplash.com/photo-1606868306217-dbf5046868d2?auto=format&fit=crop&w=1200&q=80",
+          url: "https://images.unsplash.com/photo-1522158637959-30385a09e0da?auto=format&fit=crop&w=1200&q=80",
           width: 1200,
           height: 630,
           alt: isKorean ? "사다리 게임" : "Ladder Game",
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: isKorean
         ? "공정한 추첨, 재미있는 선택! 사다리 타기로 결정하세요"
         : "Fair lottery, fun choice! Decide with ladder game",
-      images: ["https://images.unsplash.com/photo-1606868306217-dbf5046868d2?auto=format&fit=crop&w=1200&q=80"],
+      images: ["https://images.unsplash.com/photo-1522158637959-30385a09e0da?auto=format&fit=crop&w=1200&q=80"],
     },
     alternates: {
       canonical: `/${locale}/games/ladder`,
