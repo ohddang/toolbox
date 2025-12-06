@@ -140,7 +140,7 @@ export default function Clock({ locale = "ko" }: ClockProps) {
     <div className="flex min-h-[calc(100vh-73px)] w-full flex-col items-center justify-center p-4 relative overflow-x-hidden">
 
       {/* 모드 전환 버튼 */}
-      <div className="mb-[5vh] flex rounded-full bg-white/10 p-[0.5vw] backdrop-blur-lg">
+      <div className="mb-6 sm:mb-8 md:mb-[5vh] flex rounded-full bg-white/10 p-1 sm:p-1.5 md:p-[0.5vw] backdrop-blur-lg">
         <button
           onClick={() => setMode("clock")}
           className={`flex-1 rounded-full px-[4vw] py-[2vh] font-bold transition-all duration-300 whitespace-nowrap ${
@@ -169,45 +169,45 @@ export default function Clock({ locale = "ko" }: ClockProps) {
       {mode === "clock" && (
         <div className="flex flex-col items-center justify-center w-full max-w-[95vw]">
           {/* 시간 표시 */}
-          <div className="flex flex-nowrap items-center justify-center gap-[1vw]">
+          <div className="flex flex-nowrap items-center justify-center gap-2 sm:gap-3 md:gap-[1vw]">
             <div className="flex flex-col items-center">
-              <div className="rounded-3xl bg-white/10 px-[2vw] py-[3vh] backdrop-blur-lg shadow-2xl">
+              <div className="rounded-3xl bg-white/10 px-3 sm:px-4 md:px-[2vw] py-4 sm:py-5 md:py-[3vh] backdrop-blur-lg shadow-2xl">
                 <span className="font-mono font-bold text-white" style={{ fontSize: 'clamp(3rem, 12vw, 24rem)' }}>
                   {time.hours}
                 </span>
               </div>
-              <span className="mt-[2vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(1rem, 2.5vw, 4rem)' }}>{t.hours}</span>
+              <span className="mt-2 sm:mt-3 md:mt-[2vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(1rem, 2.5vw, 4rem)' }}>{t.hours}</span>
             </div>
 
-            <span className="mb-[4vh] font-mono font-bold text-white/50" style={{ fontSize: 'clamp(2rem, 9vw, 20rem)' }}>
+            <span className="mb-12 sm:mb-14 md:mb-[4vh] font-mono font-bold text-white/50 self-center" style={{ fontSize: 'clamp(2rem, 9vw, 20rem)' }}>
               :
             </span>
 
             <div className="flex flex-col items-center">
-              <div className="rounded-3xl bg-white/10 px-[2vw] py-[3vh] backdrop-blur-lg shadow-2xl">
+              <div className="rounded-3xl bg-white/10 px-3 sm:px-4 md:px-[2vw] py-4 sm:py-5 md:py-[3vh] backdrop-blur-lg shadow-2xl">
                 <span className="font-mono font-bold text-white" style={{ fontSize: 'clamp(3rem, 12vw, 24rem)' }}>
                   {time.minutes}
                 </span>
               </div>
-              <span className="mt-[2vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(1rem, 2.5vw, 4rem)' }}>{t.minutes}</span>
+              <span className="mt-2 sm:mt-3 md:mt-[2vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(1rem, 2.5vw, 4rem)' }}>{t.minutes}</span>
             </div>
 
-            <span className="mb-[4vh] font-mono font-bold text-white/50" style={{ fontSize: 'clamp(2rem, 9vw, 20rem)' }}>
+            <span className="mb-12 sm:mb-14 md:mb-[4vh] font-mono font-bold text-white/50 self-center" style={{ fontSize: 'clamp(2rem, 9vw, 20rem)' }}>
               :
             </span>
 
             <div className="flex flex-col items-center">
-              <div className="rounded-3xl bg-white/10 px-[2vw] py-[3vh] backdrop-blur-lg shadow-2xl">
+              <div className="rounded-3xl bg-white/10 px-3 sm:px-4 md:px-[2vw] py-4 sm:py-5 md:py-[3vh] backdrop-blur-lg shadow-2xl">
                 <span className="font-mono font-bold text-white" style={{ fontSize: 'clamp(3rem, 12vw, 24rem)' }}>
                   {time.seconds}
                 </span>
               </div>
-              <span className="mt-[2vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(1rem, 2.5vw, 4rem)' }}>{t.seconds}</span>
+              <span className="mt-2 sm:mt-3 md:mt-[2vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(1rem, 2.5vw, 4rem)' }}>{t.seconds}</span>
             </div>
           </div>
 
           {/* 날짜 표시 */}
-          <div className="mt-[5vh] rounded-2xl bg-white/10 px-[3vw] py-[2vh] backdrop-blur-lg shadow-xl">
+          <div className="mt-6 sm:mt-8 md:mt-[5vh] rounded-2xl bg-white/10 px-4 sm:px-5 md:px-[3vw] py-3 sm:py-4 md:py-[2vh] backdrop-blur-lg shadow-xl">
             <p className="text-center font-bold text-white whitespace-nowrap" style={{ fontSize: 'clamp(1.25rem, 3.5vw, 5rem)' }}>
               {language === "ko" 
                 ? `${date.year}${t.year} ${date.month}${t.month} ${date.day}${t.day} ${date.weekday}${t.dayOfWeek}`
@@ -222,46 +222,46 @@ export default function Clock({ locale = "ko" }: ClockProps) {
       {mode === "stopwatch" && (
         <div className="flex flex-col items-center justify-center w-full max-w-[95vw]">
           {/* 스톱워치 표시 */}
-          <div className="mb-[6vh] flex flex-col items-center">
-            <div className="flex flex-nowrap items-center justify-center gap-[0.5vw] overflow-hidden">
+          <div className="mb-8 sm:mb-10 md:mb-[6vh] flex flex-col items-center">
+            <div className="flex flex-nowrap items-center justify-center gap-1.5 sm:gap-2 md:gap-[0.5vw] overflow-hidden">
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="rounded-3xl bg-white/10 px-[1.5vw] py-[2.5vh] backdrop-blur-lg shadow-2xl">
+                <div className="rounded-3xl bg-white/10 px-2.5 sm:px-3 md:px-[1.5vw] py-3 sm:py-4 md:py-[2.5vh] backdrop-blur-lg shadow-2xl">
                   <span className="font-mono font-bold text-white" style={{ fontSize: 'clamp(2rem, 9vw, 20rem)' }}>
                     {stopwatch.hours}
                   </span>
                 </div>
-                <span className="mt-[1.5vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(0.75rem, 1.8vw, 3.5rem)' }}>{t.hours}</span>
+                <span className="mt-2 sm:mt-2.5 md:mt-[1.5vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(0.75rem, 1.8vw, 3.5rem)' }}>{t.hours}</span>
               </div>
 
-              <span className="mb-[3vh] font-mono font-bold text-white/50 flex-shrink-0" style={{ fontSize: 'clamp(1.5rem, 7vw, 18rem)' }}>
+              <span className="mb-10 sm:mb-12 md:mb-[3vh] font-mono font-bold text-white/50 flex-shrink-0 self-center" style={{ fontSize: 'clamp(1.5rem, 7vw, 18rem)' }}>
                 :
               </span>
 
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="rounded-3xl bg-white/10 px-[1.5vw] py-[2.5vh] backdrop-blur-lg shadow-2xl">
+                <div className="rounded-3xl bg-white/10 px-2.5 sm:px-3 md:px-[1.5vw] py-3 sm:py-4 md:py-[2.5vh] backdrop-blur-lg shadow-2xl">
                   <span className="font-mono font-bold text-white" style={{ fontSize: 'clamp(2rem, 9vw, 20rem)' }}>
                     {stopwatch.minutes}
                   </span>
                 </div>
-                <span className="mt-[1.5vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(0.75rem, 1.8vw, 3.5rem)' }}>{t.minutes}</span>
+                <span className="mt-2 sm:mt-2.5 md:mt-[1.5vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(0.75rem, 1.8vw, 3.5rem)' }}>{t.minutes}</span>
               </div>
 
-              <span className="mb-[3vh] font-mono font-bold text-white/50 flex-shrink-0" style={{ fontSize: 'clamp(1.5rem, 7vw, 18rem)' }}>
+              <span className="mb-10 sm:mb-12 md:mb-[3vh] font-mono font-bold text-white/50 flex-shrink-0 self-center" style={{ fontSize: 'clamp(1.5rem, 7vw, 18rem)' }}>
                 :
               </span>
 
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="rounded-3xl bg-white/10 px-[1.5vw] py-[2.5vh] backdrop-blur-lg shadow-2xl">
+                <div className="rounded-3xl bg-white/10 px-2.5 sm:px-3 md:px-[1.5vw] py-3 sm:py-4 md:py-[2.5vh] backdrop-blur-lg shadow-2xl">
                   <span className="font-mono font-bold text-white" style={{ fontSize: 'clamp(2rem, 9vw, 20rem)' }}>
                     {stopwatch.seconds}
                   </span>
                 </div>
-                <span className="mt-[1.5vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(0.75rem, 1.8vw, 3.5rem)' }}>{t.seconds}</span>
+                <span className="mt-2 sm:mt-2.5 md:mt-[1.5vh] font-bold text-white/70 whitespace-nowrap" style={{ fontSize: 'clamp(0.75rem, 1.8vw, 3.5rem)' }}>{t.seconds}</span>
               </div>
             </div>
 
             {/* 밀리초 */}
-            <div className="mt-[3vh] rounded-2xl bg-white/10 px-[3vw] py-[1.5vh] backdrop-blur-lg shadow-xl">
+            <div className="mt-4 sm:mt-5 md:mt-[3vh] rounded-2xl bg-white/10 px-4 sm:px-5 md:px-[3vw] py-2 sm:py-2.5 md:py-[1.5vh] backdrop-blur-lg shadow-xl">
               <span className="font-mono font-bold text-white/90" style={{ fontSize: 'clamp(1.5rem, 5vw, 10rem)' }}>
                 .{stopwatch.milliseconds}
               </span>
@@ -269,10 +269,10 @@ export default function Clock({ locale = "ko" }: ClockProps) {
           </div>
 
           {/* 컨트롤 버튼 */}
-          <div className="flex flex-wrap gap-[2vw] justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-[2vw] justify-center w-full sm:w-auto px-4 sm:px-0">
             <button
               onClick={handleStartStop}
-              className={`rounded-full px-[4vw] py-[2.5vh] font-bold text-white shadow-2xl transition-all hover:scale-105 whitespace-nowrap ${
+              className={`rounded-full px-6 sm:px-8 md:px-[4vw] py-3 sm:py-4 md:py-[2.5vh] font-bold text-white shadow-2xl transition-all hover:scale-105 whitespace-nowrap ${
                 isRunning
                   ? "bg-gradient-to-r from-red-500 to-pink-500"
                   : "bg-gradient-to-r from-green-500 to-emerald-500"
@@ -285,7 +285,7 @@ export default function Clock({ locale = "ko" }: ClockProps) {
             <button
               onClick={handleReset}
               disabled={stopwatchTime === 0 && !isRunning}
-              className={`rounded-full px-[4vw] py-[2.5vh] font-bold shadow-2xl transition-all whitespace-nowrap ${
+              className={`rounded-full px-6 sm:px-8 md:px-[4vw] py-3 sm:py-4 md:py-[2.5vh] font-bold shadow-2xl transition-all whitespace-nowrap ${
                 stopwatchTime === 0 && !isRunning
                   ? "cursor-not-allowed bg-white/20 text-white/40"
                   : "bg-gradient-to-r from-orange-500 to-yellow-500 text-white hover:scale-105"

@@ -47,11 +47,6 @@
       "description": "Addictive puzzle game! Merge same numbers to create the 2048 tile. Simple yet requires strategic thinking.",
       "tags": ["Puzzle", "Strategy", "Classic"]
     },
-    "2": {
-      "title": "Ladder Game",
-      "description": "Need a fair draw? Set participants and results, then climb the ladder. Check results with fun animations.",
-      "tags": ["Draw", "Ladder", "Fair"]
-    },
     "16": {
       "title": "Roulette Game",
       "description": "Weight-based fair roulette! Set items and probabilities freely with stunning animations.",
