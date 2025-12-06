@@ -4,7 +4,7 @@ import RouletteGame from "../../../components/RouletteGame";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import Script from "next/script";
-import { Header } from "../../../components/Header";
+import { LanguageSwitcher } from "../../../components/LanguageSwitcher";
 
 export default function RouletteGamePage() {
   const params = useParams();
@@ -43,10 +43,31 @@ export default function RouletteGamePage() {
       />
       <div className="min-h-screen bg-gradient-to-b from-orange-50 to-pink-50">
         {/* 헤더 */}
-        <Header
-          theme="orange"
-          showBackButton={true}
-        />
+        <header className="border-b border-orange-100 bg-white/90 backdrop-blur-sm shadow-sm">
+          <div className="mx-auto max-w-7xl px-6 py-4">
+            <div className="flex items-center justify-between">
+              <Link href={`/${locale}`} className="flex items-center gap-2 md:gap-3 group">
+                <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-xl md:rounded-2xl bg-gradient-to-br from-orange-400 to-pink-500 shadow-md group-hover:scale-110 transition-transform">
+                  <span className="text-lg md:text-xl">🧰</span>
+                </div>
+                <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
+                  Toolbag
+                </h1>
+              </Link>
+              <div className="flex items-center gap-2 md:gap-4">
+                <div className="hidden md:block">
+                  <LanguageSwitcher />
+                </div>
+                <Link
+                  href={`/${locale}`}
+                  className="rounded-full bg-orange-50 px-3 py-2 md:px-5 text-xs md:text-sm font-bold text-orange-600 transition-all hover:bg-orange-100 hover:scale-105"
+                >
+                  ← {isKorean ? "돌아가기" : "Back"}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </header>
 
         {/* 메인 컨텐츠 */}
         <main className="mx-auto max-w-4xl px-6 py-12">

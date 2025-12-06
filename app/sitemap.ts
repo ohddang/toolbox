@@ -7,7 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 게임 페이지들
   const games = [
     "/games/2048",
-    "/games/ladder",
     "/games/roulette",
     "/games/color-finder",
   ];

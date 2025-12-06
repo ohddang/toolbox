@@ -10,7 +10,7 @@ import {
   generateBreadcrumbSchema,
 } from "../structured-data";
 import { useTranslation } from "../i18n/client";
-import { Header } from "../components/Header";
+import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { DisplayAd, InFeedAd } from "../components/AdSense";
 import { StructuredData } from "../components/StructuredData";
 
@@ -36,8 +36,7 @@ const tools: Tool[] = [
     title: "2048 게임",
     description:
       "중독성 있는 퍼즐 게임! 같은 숫자를 합쳐서 2048 타일을 만드세요. 간단하지만 전략적인 사고가 필요한 클래식 게임입니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/icon/icon-2048.png",
     mainCategory: "게임",
     tags: ["퍼즐", "전략", "클래식"],
     price: "무료",
@@ -45,25 +44,11 @@ const tools: Tool[] = [
     date: "2024-11-26",
   },
   {
-    id: 2,
-    title: "사다리 게임",
-    description:
-      "공정한 추첨이 필요할 때! 참가자와 결과를 설정하고 사다리를 타세요. 애니메이션으로 재미있게 결과를 확인할 수 있습니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1522158637959-30385a09e0da?auto=format&fit=crop&w=1200&q=80",
-    mainCategory: "게임",
-    tags: ["추첨", "사다리타기", "공정"],
-    price: "무료",
-    gameUrl: "/games/ladder",
-    date: "2024-11-26",
-  },
-  {
     id: 16,
     title: "룰렛 게임",
     description:
       "가중치 기반 공정한 룰렛! 항목과 확률을 자유롭게 설정하고 멋진 애니메이션으로 추첨하세요. 경품, 팀 나누기, 랜덤 선택 등 다양하게 활용 가능합니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/icon/icon-rullet.png",
     mainCategory: "게임",
     tags: ["룰렛", "추첨", "가중치"],
     price: "무료",
@@ -75,8 +60,7 @@ const tools: Tool[] = [
     title: "색상 찾기 게임",
     description:
       "다른 색상의 칸을 찾는 두뇌 트레이닝 게임! 레벨이 올라갈수록 그리드가 커지고 색상 차이가 줄어들어 난이도가 증가합니다. 집중력과 색감을 테스트해보세요!",
-    imageUrl:
-      "https://images.unsplash.com/photo-1525909002-1b05e0c869d8?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/icon/icon-color-odd.png",
     mainCategory: "게임",
     tags: ["두뇌게임", "색감", "집중력"],
     price: "무료",
@@ -88,8 +72,7 @@ const tools: Tool[] = [
     title: "시계 & 스톱워치",
     description:
       "큰 화면의 디지털 시계와 정밀한 스톱워치! 현재 시간을 한눈에 보거나 시간을 측정하세요. 모바일과 PC 모두 최적화되어 있습니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/icon/icon-clock.png",
     mainCategory: "유틸리티",
     tags: ["시계", "스톱워치", "타이머"],
     price: "무료",
@@ -103,8 +86,7 @@ const tools: Tool[] = [
     title: "IQ 테스트",
     description:
       "당신의 지능 지수를 측정해보세요! 논리, 수리, 공간 지각 능력을 종합적으로 평가하는 전문 IQ 테스트입니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "/icon/icon-iq-test.png",
     mainCategory: "테스트",
     tags: ["IQ", "지능", "논리"],
     price: "무료",
@@ -205,23 +187,57 @@ function HomeContent() {
       
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
         {/* Header */}
-        <Header
-          theme="orange"
-          showNavigation={true}
-          sticky={true}
-          selectedCategory={selectedMainCategory !== "전체" ? selectedMainCategory : undefined}
-        />
+        <header className="sticky top-0 z-30 border-b border-orange-100 bg-white/90 backdrop-blur-sm shadow-sm">
+          <div className="mx-auto max-w-7xl px-6 py-4">
+            <div className="flex items-center justify-between">
+              <Link href={`/${locale}`} className="flex items-center gap-3 group">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-pink-500 shadow-lg rotate-3 group-hover:rotate-0 transition-transform">
+                  <span className="text-2xl font-bold text-white">🧰</span>
+                </div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
+                  Toolbag
+                </h1>
+              </Link>
+              <nav
+                className="hidden items-center gap-6 md:flex"
+                aria-label="Main navigation"
+              >
+                {mainCategories.slice(1).map((category) => (
+                  <Link
+                    key={category}
+                    href={`/${locale}?category=${category}`}
+                    scroll={false}
+                    className={`text-sm font-bold transition-all rounded-full px-4 py-2 ${
+                      selectedMainCategory === category
+                        ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-md"
+                        : "text-slate-600 hover:text-orange-600 hover:bg-orange-50"
+                    }`}
+                  >
+                    {category === "게임"
+                      ? t("header.games")
+                      : category === "유틸리티"
+                        ? t("header.utilities")
+                        : t("header.tests")}
+                  </Link>
+                ))}
+                <div className="hidden md:block">
+                  <LanguageSwitcher />
+                </div>
+              </nav>
+            </div>
+          </div>
+        </header>
 
         {/* Hero Section */}
         <section className="border-b border-orange-100 bg-gradient-to-r from-orange-400 via-pink-400 to-rose-400">
-          <div className="mx-auto max-w-7xl px-6 py-20 text-center">
-            <div className="mb-6 inline-block rounded-full bg-white px-6 py-2 text-sm font-bold text-orange-600 shadow-lg animate-bounce border-2 border-orange-200">
+          <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 md:py-20 text-center">
+            <div className="mb-4 sm:mb-6 inline-block rounded-full bg-white px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-orange-600 shadow-lg animate-bounce border-2 border-orange-200">
               ✨ {t("hero.free")}
             </div>
-            <h2 className="mb-4 text-5xl font-extrabold tracking-tight text-white drop-shadow-lg">
+            <h2 className="mb-3 sm:mb-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white drop-shadow-lg">
               {t("hero.title")}
             </h2>
-            <p className="mx-auto max-w-2xl text-xl text-white/95 font-medium">
+            <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-white/95 font-medium px-4">
               {t("hero.subtitle")}
             </p>
           </div>
@@ -270,30 +286,40 @@ function HomeContent() {
           <div className="mx-auto max-w-7xl px-6">
           {/* 태그 필터 */}
           {allTags.length > 0 && (
-          <div className="mb-8 rounded-2xl bg-white p-6 shadow-md border-2 border-orange-200">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-lg font-bold text-slate-900">
+          <div className="mb-6 sm:mb-8 rounded-xl sm:rounded-2xl bg-white p-4 sm:p-6 shadow-md border-2 border-orange-200">
+            <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
+              <span className="text-base sm:text-lg font-bold text-slate-900 whitespace-nowrap">
                 🏷️ {t("tags.title")}
               </span>
               {selectedTag && (
                 <button
                   onClick={() => setSelectedTag(null)}
-                  className="text-xs px-3 py-1 bg-white rounded-full text-slate-600 hover:bg-slate-100 transition-colors border border-slate-200"
+                  className="text-xs px-2.5 sm:px-3 py-1 bg-white rounded-full text-slate-600 hover:bg-slate-100 transition-colors border border-slate-200 whitespace-nowrap flex-shrink-0"
                 >
                   ✕ {t("tags.clearFilter")}
                 </button>
               )}
             </div>
-            <div className="flex flex-wrap gap-2">
+            {/* 모바일: 가로 스크롤, 데스크톱: flex-wrap */}
+            <div 
+              className="flex gap-2 overflow-x-auto overflow-y-visible pb-4 sm:flex-wrap sm:overflow-x-visible sm:pb-0 scrollbar-hide -mx-1 px-1 sm:mx-0 sm:px-0"
+              style={{ 
+                WebkitOverflowScrolling: 'touch',
+                scrollBehavior: 'smooth'
+              }}
+            >
               {allTags.map((tag) => (
                 <button
                   key={tag}
                   onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap flex-shrink-0 relative ${
                     selectedTag === tag
-                      ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-lg scale-105"
-                      : "bg-white text-slate-700 hover:bg-orange-100 hover:scale-105 border border-orange-200"
+                      ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-lg scale-105 z-20"
+                      : "bg-white text-slate-700 hover:bg-orange-100 hover:scale-105 border border-orange-200 z-10"
                   }`}
+                  style={{
+                    boxShadow: selectedTag === tag ? '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' : undefined
+                  }}
                 >
                   #{tag}
                 </button>
@@ -312,7 +338,7 @@ function HomeContent() {
             </p>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
             {filteredTools.map((tool, index) => (
               <React.Fragment key={tool.id}>
                 <Link
@@ -320,40 +346,40 @@ function HomeContent() {
                   className={tool.gameUrl ? "" : "pointer-events-none"}
                 >
                   <article
-                    className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-orange-50/30 shadow-lg border-2 border-orange-100 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-orange-300 h-[420px] flex flex-col ${tool.gameUrl ? "cursor-pointer" : ""}`}
+                    className={`group relative overflow-hidden rounded-xl bg-gradient-to-br from-white via-white to-orange-50/30 shadow-md border border-orange-100 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:border-orange-300 h-[280px] sm:h-[300px] flex flex-col ${tool.gameUrl ? "cursor-pointer" : ""}`}
                     itemScope
                     itemType="https://schema.org/SoftwareApplication"
                   >
                     {/* 배경 장식 효과 */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-200/20 to-pink-200/20 rounded-full blur-3xl -z-10 group-hover:scale-150 transition-transform duration-500"></div>
-                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full blur-2xl -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-200/20 to-pink-200/20 rounded-full blur-2xl -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full blur-xl -z-10 group-hover:scale-150 transition-transform duration-500"></div>
 
-                    <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
+                    <div className="relative h-32 sm:h-36 w-full overflow-hidden flex-shrink-0">
                       <Image
                         src={tool.imageUrl}
                         alt={t(`tools.${tool.id}.title`)}
                         fill
                         className="object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
                         itemProp="image"
                       />
                       {/* 오버레이 그라데이션 */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
 
-                    <div className="p-5 relative flex-1 flex flex-col">
+                    <div className="p-3 sm:p-4 relative flex-1 flex flex-col">
                       {/* 상단 라인 장식 */}
-                      <div className="absolute top-0 left-5 right-5 h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute top-0 left-3 right-3 sm:left-4 sm:right-4 h-0.5 bg-gradient-to-r from-transparent via-orange-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                       <h3
-                        className="mb-3 text-xl font-bold text-slate-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-orange-600 group-hover:via-pink-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300 line-clamp-2 min-h-[56px]"
+                        className="mb-2 text-base sm:text-lg font-bold text-slate-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-orange-600 group-hover:via-pink-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300 line-clamp-2"
                         itemProp="name"
                       >
                         {t(`tools.${tool.id}.title`)}
                       </h3>
 
-                      <div className="mb-3 flex flex-wrap gap-1.5 min-h-[32px]">
-                        {(t(`tools.${tool.id}.tags`, { returnObjects: true }) as unknown as string[]).map((tag: string, tagIndex: number) => {
+                      <div className="mb-2 flex flex-wrap gap-1">
+                        {(t(`tools.${tool.id}.tags`, { returnObjects: true }) as unknown as string[]).slice(0, 2).map((tag: string, tagIndex: number) => {
                           const tagColors = [
                             { bg: "from-orange-200 to-white", text: "text-orange-800" },
                             { bg: "from-pink-200 to-white", text: "text-pink-800" },
@@ -370,7 +396,7 @@ function HomeContent() {
                                 setSelectedTag(tag === selectedTag ? null : tag);
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                               }}
-                              className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold transition-all duration-300 hover:scale-110 hover:shadow-md bg-gradient-to-br ${tagColors[colorIndex].bg} ${tagColors[colorIndex].text} cursor-pointer`}
+                              className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] sm:text-xs font-semibold transition-all duration-300 hover:scale-110 hover:shadow-md bg-gradient-to-br ${tagColors[colorIndex].bg} ${tagColors[colorIndex].text} cursor-pointer`}
                               style={{ transitionDelay: `${tagIndex * 50}ms` }}
                               itemProp="keywords"
                             >
@@ -381,14 +407,14 @@ function HomeContent() {
                       </div>
 
                       <p
-                        className="text-sm leading-relaxed text-slate-600 line-clamp-3 group-hover:text-slate-700 transition-colors duration-300 flex-1"
+                        className="text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-2 group-hover:text-slate-700 transition-colors duration-300 flex-1"
                         itemProp="description"
                       >
                         {t(`tools.${tool.id}.description`)}
                       </p>
 
                       {/* 하단 호버 인디케이터 */}
-                      <div className="mt-4 flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="mt-2 flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
                         <div className="h-1 w-1 rounded-full bg-orange-400 animate-pulse"></div>
                         <div className="h-1 w-1 rounded-full bg-pink-400 animate-pulse delay-75"></div>
                         <div className="h-1 w-1 rounded-full bg-purple-400 animate-pulse delay-150"></div>
@@ -396,14 +422,14 @@ function HomeContent() {
                     </div>
 
                     {/* 코너 장식 */}
-                    <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-orange-300/50 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-pink-300/50 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute top-2 right-2 w-6 h-6 border-t-2 border-r-2 border-orange-300/50 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute bottom-2 left-2 w-6 h-6 border-b-2 border-l-2 border-pink-300/50 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </article>
                 </Link>
 
-                {/* In-Feed Ad after every 6 tools */}
-                {(index + 1) % 6 === 0 && index !== filteredTools.length - 1 && (
-                  <div className="sm:col-span-2 lg:col-span-3">
+                {/* In-Feed Ad after every 10 tools */}
+                {(index + 1) % 10 === 0 && index !== filteredTools.length - 1 && (
+                  <div className="sm:col-span-2 lg:col-span-4 xl:col-span-5">
                     <InFeedAd adSlot="0987654321" />
                   </div>
                 )}
@@ -437,12 +463,12 @@ function HomeContent() {
                 <h4 className="mb-3 font-semibold text-orange-800">
                   {t("footer.services.title")}
                 </h4>
-                <ul className="space-y-2 text-sm text-orange-600">
+                <ul className="space-y-2 text-sm text-orange-700">
                   <li>
                     <Link
                       href={`/${locale}?category=게임`}
                       scroll={false}
-                      className="hover:text-orange-800 transition-colors"
+                      className="hover:text-orange-900 transition-colors"
                     >
                       {t("footer.services.games")}
                     </Link>
@@ -451,7 +477,7 @@ function HomeContent() {
                     <Link
                       href={`/${locale}?category=유틸리티`}
                       scroll={false}
-                      className="hover:text-orange-800 transition-colors"
+                      className="hover:text-orange-900 transition-colors"
                     >
                       {t("footer.services.utilities")}
                     </Link>
@@ -460,7 +486,7 @@ function HomeContent() {
                     <Link
                       href={`/${locale}?category=테스트`}
                       scroll={false}
-                      className="hover:text-orange-800 transition-colors"
+                      className="hover:text-orange-900 transition-colors"
                     >
                       {t("footer.services.tests")}
                     </Link>
@@ -471,11 +497,11 @@ function HomeContent() {
                 <h4 className="mb-3 font-semibold text-orange-800">
                   {t("footer.contact.title")}
                 </h4>
-                <ul className="space-y-2 text-sm text-orange-600">
+                <ul className="space-y-2 text-sm text-orange-700">
                   <li>
                     <a
                       href="mailto:ohddang509@gmail.com"
-                      className="hover:text-orange-800 transition-colors"
+                      className="hover:text-orange-900 transition-colors"
                     >
                       ohddang509@gmail.com
                     </a>
