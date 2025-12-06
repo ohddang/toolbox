@@ -48,6 +48,7 @@ export default function Game2048() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [scale, setScale] = useState(1);
 
   // 타일 좌표 계산
   const getTilePosition = (row: number, col: number) => {
@@ -546,6 +547,21 @@ export default function Game2048() {
     };
   }, [gameOver]);
 
+  // 반응형 스케일 계산
+  useEffect(() => {
+    const CANVAS_SIZE = 450; // 4 * 100 + 5 * 10
+    
+    const updateScale = () => {
+      const containerWidth = window.innerWidth - 48; // padding 고려
+      const newScale = Math.min(1, containerWidth / CANVAS_SIZE);
+      setScale(newScale);
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
+
   // 베스트 스코어 업데이트
   useEffect(() => {
     if (score > bestScore) {
@@ -563,9 +579,9 @@ export default function Game2048() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center gap-6 w-full max-w-full overflow-x-auto px-4">
       {/* 스코어 보드 */}
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap justify-center">
         <div className="rounded-lg bg-amber-600 px-6 py-3 text-center">
           <div className="text-xs font-semibold uppercase text-amber-100">
             점수
@@ -580,11 +596,18 @@ export default function Game2048() {
         </div>
       </div>
 
-      {/* 게임 캔버스 */}
-      <div className="relative">
+      {/* 게임 캔버스 - 반응형 스케일링 */}
+      <div 
+        className="relative w-full flex justify-center"
+        style={{ height: `${450 * scale}px` }}
+      >
         <div 
           ref={canvasRef} 
           className="rounded-lg shadow-2xl touch-none select-none"
+          style={{
+            transform: `scale(${scale})`,
+            transformOrigin: 'top center',
+          }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           onMouseDown={handleMouseDown}
@@ -592,14 +615,21 @@ export default function Game2048() {
         />
 
         {gameOver && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/50">
+          <div 
+            className="absolute top-0 left-1/2 flex items-center justify-center rounded-lg bg-black/50"
+            style={{
+              width: `${450 * scale}px`,
+              height: `${450 * scale}px`,
+              transform: 'translateX(-50%)',
+            }}
+          >
             <div className="text-center">
-              <div className="mb-4 text-4xl font-bold text-white">
+              <div className="mb-4 text-2xl md:text-4xl font-bold text-white">
                 게임 오버!
               </div>
               <button
                 onClick={initGame}
-                className="rounded-lg bg-amber-600 px-6 py-3 text-lg font-semibold text-white transition-colors hover:bg-amber-700"
+                className="rounded-lg bg-amber-600 px-4 py-2 md:px-6 md:py-3 text-base md:text-lg font-semibold text-white transition-colors hover:bg-amber-700"
               >
                 다시 시작
               </button>

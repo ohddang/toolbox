@@ -238,7 +238,9 @@ function HomeContent() {
                         : t("header.tests")}
                   </Link>
                 ))}
-                <LanguageSwitcher />
+                <div className="hidden md:block">
+                  <LanguageSwitcher />
+                </div>
               </nav>
             </div>
           </div>

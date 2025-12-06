@@ -158,13 +158,13 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <head>
         {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MWXHCWGP6N" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-TXH4PD5T" />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-MWXHCWGP6N');`,
+gtag('config', 'GTM-TXH4PD5T');`,
           }}
         />
         {/* Google Tag Manager */}

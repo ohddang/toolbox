@@ -40,19 +40,21 @@ export default function MBTITestPage() {
         <header className="border-b border-purple-100 bg-white/90 backdrop-blur-sm shadow-sm">
           <div className="mx-auto max-w-7xl px-6 py-4">
             <div className="flex items-center justify-between">
-              <Link href={`/${locale}`} className="flex items-center gap-3 group">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-400 to-blue-500 shadow-md group-hover:scale-110 transition-transform">
-                  <span className="text-xl">🧰</span>
+              <Link href={`/${locale}`} className="flex items-center gap-2 md:gap-3 group">
+                <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-xl md:rounded-2xl bg-gradient-to-br from-purple-400 to-blue-500 shadow-md group-hover:scale-110 transition-transform">
+                  <span className="text-lg md:text-xl">🧰</span>
                 </div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   Toolbag
                 </h1>
               </Link>
-              <div className="flex items-center gap-4">
-                <LanguageSwitcher />
+              <div className="flex items-center gap-2 md:gap-4">
+                <div className="hidden md:block">
+                  <LanguageSwitcher />
+                </div>
                 <Link
                   href={`/${locale}`}
-                  className="rounded-full bg-purple-50 px-5 py-2 text-sm font-bold text-purple-600 transition-all hover:bg-purple-100 hover:scale-105"
+                  className="rounded-full bg-purple-50 px-3 py-2 md:px-5 text-xs md:text-sm font-bold text-purple-600 transition-all hover:bg-purple-100 hover:scale-105"
                 >
                   ← {isKorean ? "돌아가기" : "Back"}
                 </Link>

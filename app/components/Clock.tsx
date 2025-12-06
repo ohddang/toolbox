@@ -137,7 +137,7 @@ export default function Clock({ locale = "ko" }: ClockProps) {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-73px)] w-full flex-col items-center justify-center p-[1vw] relative">
+    <div className="flex min-h-[calc(100vh-73px)] w-full flex-col items-center justify-center p-4 relative overflow-x-hidden">
 
       {/* 모드 전환 버튼 */}
       <div className="mb-[5vh] flex rounded-full bg-white/10 p-[0.5vw] backdrop-blur-lg">

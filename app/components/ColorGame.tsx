@@ -147,7 +147,7 @@ export default function ColorGame() {
   const gridSize = getGridSize(level);
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-full overflow-x-auto px-4">
       {/* 게임 정보 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-6">
         <div>

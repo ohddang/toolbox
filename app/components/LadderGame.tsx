@@ -536,11 +536,11 @@ export default function LadderGame({ locale = "ko" }: LadderGameProps) {
   }, [gameStarted, players, clickedStarts]);
 
   return (
-    <div className="flex flex-col items-center gap-6 p-4">
+    <div className="flex flex-col items-center gap-6 p-4 w-full max-w-full overflow-x-auto">
       {/* PixiJS 캔버스 (항상 마운트, 게임 시작 전에는 숨김) */}
       <div 
         ref={canvasRef} 
-        className={gameStarted ? "rounded-3xl shadow-2xl border-4 border-orange-100" : "hidden"}
+        className={gameStarted ? "rounded-3xl shadow-2xl border-4 border-orange-100 scale-[0.5] sm:scale-[0.7] md:scale-100 origin-top" : "hidden"}
       />
       
       {!gameStarted ? (
